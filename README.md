@@ -6,6 +6,6 @@
 
 ## ✍🏻 Contributors
 * Yu Teng [@WangYuTengg](https://github.com/WangYuTengg)
-* Xavier [@appleworm34] (https://github.com/appleworm34)
-* Chee Yong [@kopikia] (https://github.com/kopikia)
-* Rongtao [@rtao9] (https://github.com/rtao9)
+* Xavier [@appleworm34](https://github.com/appleworm34)
+* Chee Yong [@kopikia](https://github.com/kopikia)
+* Rongtao [@rtao9](https://github.com/rtao9)
