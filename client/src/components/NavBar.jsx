@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
-const pages = ['Submit Study Spot', 'List Of Spots'];
+const pages = ['Submit Study Spot', 'List Of Spots', 'About'];
 const settings = ['Profile', 'Favorite Spots', 'Logout'];
 
 function NavBar() {
@@ -112,12 +112,12 @@ function NavBar() {
           >
             SGAcad
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, px: '30%' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', px: 2}}
+                sx={{ my: 2, color: 'white', display: 'block', px: 4}}
               >
                 {page}
               </Button>
