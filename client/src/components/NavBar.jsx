@@ -13,7 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import EditLocationIcon from '@mui/icons-material/EditLocation';
 
-const pages = ['Submit Study Spot', 'List'];
+const pages = ['Submit Study Spot', 'List Of Spots'];
 const settings = ['Profile', 'Favorite Spots', 'Logout'];
 
 function NavBar() {
@@ -36,7 +36,7 @@ function NavBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{background: '#272D26'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <EditLocationIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -55,9 +55,9 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            SG Acad
+            SGAcad
           </Typography>
-
+ 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -89,7 +89,7 @@ function NavBar() {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center" sx={{p: 2}}>{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -110,14 +110,14 @@ function NavBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SGAcad
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, px: '30%' }}>
             {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'white', display: 'block', px: 2}}
               >
                 {page}
               </Button>
