@@ -1,0 +1,61 @@
+// create study spot
+POST http://localhost:3001/studyspots/create
+Content-Type: application/json
+
+{
+    "name": "test",
+    "description": "this is a test studyspot",
+    "picturePath": "",
+    "location": {
+        "type" : "Point",
+        "coordinates" : [
+            -122.5,
+            37.7
+        ]
+    }
+}
+
+### 
+
+// get all study spots
+GET http://localhost:3001/studyspots/
+
+###
+
+// get study spot by id
+GET http://localhost:3001/studyspots/641408f9b4b8c89c10e2f0e4
+
+###
+
+// create user
+POST http://localhost:3001/auth/register
+Content-Type: application/json
+
+{
+    "firstName": "test",
+    "lastName": "test",
+    "email": "test@test.com",
+    "password": "test",
+    "picturePath": "",
+    "location": ""
+}
+
+###
+
+// get user by id
+GET http://localhost:3001/users/64140eedebd857abeb395fcf
+
+###
+
+// add studyspot to user favourites
+PATCH http://localhost:3001/studyspots/641408f9b4b8c89c10e2f0e4/64140eedebd857abeb395fcf
+
+###
+
+// get user favourite spots
+GET http://localhost:3001/users/64140eedebd857abeb395fcf/favorite-spots
+
+###
+
+// get user reviews
+GET http://localhost:3001/users/64140eedebd857abeb395fcf/reviews

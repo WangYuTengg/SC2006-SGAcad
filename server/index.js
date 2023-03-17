@@ -10,15 +10,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
-import postRoutes from "./routes/posts.js";
 import studySpotRoutes from "./routes/studyspots.js";
 import { register } from "./controllers/auth.js";
-import { createPost } from "./controllers/posts.js";
 import { createStudySpot } from "./controllers/studyspots.js";
 import { verifyToken } from "./middleware/auth.js";
-import User from "./models/User.js";
-import Post from "./models/Post.js";
-import { users, posts } from "./data/index.js";
 import { createReview } from "./controllers/reviews.js";
 
 /* CONFIGURATIONS */
@@ -47,13 +42,13 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 /* ROUTES WITH FILES */
-app.post("/auth/register", upload.single("picture"), register);
-app.post("/posts", verifyToken, upload.single("picture"), createPost);
+// app.post("/auth/register", upload.single("picture"), register);
+app.post("/auth/register", register);
 app.post("/:spotId/review/create-review", verifyToken, upload.single("picture"), createReview)
+
 /* ROUTES */
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
-app.use("/posts", postRoutes);
 app.use("/studyspots", studySpotRoutes);
 
 /* MONGOOSE SETUP */

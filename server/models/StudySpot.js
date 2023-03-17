@@ -16,7 +16,17 @@ const StudySpotSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
-        location: String
+        location: {
+            type: {
+                type: String,
+                enum: ['Point'],
+                required: true
+            },
+            coordinates: {
+                type: [Number],
+                required: true
+            }
+        }
     },
     { timestamps: true}
 );

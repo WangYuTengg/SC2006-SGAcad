@@ -35,6 +35,16 @@ export const getSpotReviews = async (req, res) => {
     }
 };
 
+export const getUserReviews = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const review = await Review.find({ userId });
+        res.status(200).json(review);
+    } catch (err) {
+        res.status(404).json({ message: err.message });
+    }
+}
+
 /* UPDATE */
 // export const editReview = async (req, res) => {
 
