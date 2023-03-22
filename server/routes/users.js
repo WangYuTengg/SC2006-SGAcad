@@ -10,9 +10,9 @@ import { verifyToken } from "../middleware/auth.js";
 const router = express.Router();
 
 /* READ */
-router.get("/:id", getUser);
-router.get("/:id/reviews", getUserReviews);
-router.get("/:id/favorite-spots", getUserFavoriteSpots);
+router.get("/:id", verifyToken, getUser);
+router.get("/:id/reviews", verifyToken, getUserReviews);
+router.get("/:id/favorite-spots", verifyToken, getUserFavoriteSpots);
 
 
 export default router;
