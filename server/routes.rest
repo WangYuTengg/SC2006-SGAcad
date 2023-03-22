@@ -3,8 +3,8 @@ POST http://localhost:3001/studyspots/create
 Content-Type: application/json
 
 {
-    "name": "test",
-    "description": "this is a test studyspot",
+    "name": "test1",
+    "description": "this is a test1 studyspot",
     "picturePath": "",
     "location": {
         "type" : "Point",
@@ -34,10 +34,9 @@ Content-Type: application/json
 {
     "firstName": "test",
     "lastName": "test",
-    "email": "test@test.com",
+    "email": "test1@test.com",
     "password": "test",
-    "picturePath": "",
-    "location": ""
+    "picturePath": ""
 }
 
 ###
