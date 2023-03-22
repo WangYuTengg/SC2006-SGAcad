@@ -1,25 +1,42 @@
-import CssBaseline from '@mui/material/CssBaseline';
-import {Routes, Route} from 'react-router-dom';
-import IndexPage from './pages/IndexPage';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import IndexPage from "./pages/IndexPage";
+import LoginPage from "./pages/LoginPage";
+import ProfilePage from "./pages/ProfilePage";
+import SubmitSpotPage from "./pages/SubmitSpotPage";
 import StudySpotPage from './pages/StudySpotPage';
-import Layout from './components/Layout';
+import Layout from "./components/Layout";
+import { useMemo } from "react";
+import { createTheme } from "@mui/material/styles";
+import { themeSettings } from "./theme";
+import { useSelector } from "react-redux";
 
 export default function App() {
+  const mode = useSelector((state) => state.mode);
+  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const isAuth = Boolean(useSelector((state) => state.token));
+
   return (
-    <CssBaseline>
-      <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route index element={<IndexPage />} />
-          <Route path = '/Login' element={<LoginPage />}/>
-          <Route path = '/Register' element={<RegisterPage />} />
-          <Route path = '/studyspots/:spotId' element={<StudySpotPage />} />
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<IndexPage />} />
+              <Route path="/Login" element={<LoginPage />} />
+              <Route
+                path="/profile/:userId"
+                element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/SubmitStudySpot"
+                element={isAuth ? <SubmitSpotPage /> : <Navigate to="/" />}
+              />
+              <Route path = '/studyspots/:spotId' element={<StudySpotPage />} />
         </Route>
-      </Routes>
-    </CssBaseline>
-  )
+          </Routes>
+        </CssBaseline>
+      </ThemeProvider>
+    </BrowserRouter>
+  );
 }
-
-
-

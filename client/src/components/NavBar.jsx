@@ -1,161 +1,249 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import EditLocationIcon from '@mui/icons-material/EditLocation';
+import { useEffect, useState } from "react";
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Typography,
+  Select,
+  MenuItem,
+  FormControl,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
+import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setMode, setLogout } from "../state/index";
+import { useNavigate } from "react-router-dom";
+import FlexBetween from "./FlexBetween";
 
-const pages = ['Submit Study Spot', 'List Of Spots', 'About'];
-const settings = ['Profile', 'Favorite Spots', 'Logout'];
+const NavBar = () => {
+  const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
-function NavBar() {
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  // THEME
+  const theme = useTheme();
+  const neutralLight = theme.palette.neutral.light;
+  const dark = theme.palette.neutral.dark;
+  const background = theme.palette.background.default;
+  const primaryLight = theme.palette.primary.light;
+  const alt = theme.palette.background.alt;
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
+  // SET USER
+  const [fullName, setFullName] = useState("");
+  const [userId, setUserId] = useState("");
+  const isLogin = () => {
+    if (user !== null) {
+      setIsLoggedIn(true);
+      setFullName(`${user.firstName} ${user.lastName}`);
+      setUserId(`${user._id}`);
+    } else {
+      setIsLoggedIn(false);
+    }
   };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  useEffect(() => {
+    isLogin();
+  }, [user]);
 
   return (
-    <AppBar position="static" sx={{background: '#272D26'}}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <EditLocationIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
+    <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+      <FlexBetween gap="1.75rem">
+        <Typography
+          fontWeight="bold"
+          fontSize="clamp(1rem, 2rem, 2.25rem)"
+          color="primary"
+          onClick={() => navigate("/")}
+          sx={{
+            "&:hover": {
+              color: primaryLight,
+              cursor: "pointer",
+            },
+          }}
+        >
+          SG Acad
+        </Typography>
+        {isNonMobileScreens && (
+          <FlexBetween
+            backgroundColor={neutralLight}
+            borderRadius="9px"
+            gap="3rem"
+            padding="0.1rem 1.5rem"
           >
-            SGAcad
-          </Typography>
- 
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
+            <InputBase placeholder="Search..." />
+            <IconButton>
+              <Search />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center" sx={{p: 2}}>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          </FlexBetween>
+        )}
+        {isLoggedIn && (
           <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
+            fontWeight="500"
+            fontSize="1.1rem"
+            onClick={() => navigate("/SubmitStudySpot")}
             sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+              "&:hover": {
+                color: primaryLight,
+                cursor: "pointer",
+              },
             }}
           >
-            SGAcad
+            Submit a study spot
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block', px: 4}}
+        )}
+      </FlexBetween>
+
+      {/* DESKTOP NAV */}
+      {isNonMobileScreens ? (
+        <FlexBetween gap="2rem">
+          <IconButton onClick={() => dispatch(setMode())}>
+            {theme.palette.mode === "dark" ? (
+              <DarkMode sx={{ fontSize: "25px" }} />
+            ) : (
+              <LightMode sx={{ color: dark, fontSize: "25px" }} />
+            )}
+          </IconButton>
+          {isLoggedIn ? (
+            <FormControl variant="standard" value={fullName}>
+              <Select
+                value={fullName}
+                sx={{
+                  backgroundColor: neutralLight,
+                  width: "fit-content",
+                  borderRadius: "0.25rem",
+                  p: "0.25rem 1rem",
+                  "& .MuiSvgIcon-root": {
+                    pr: "0.25rem",
+                    width: "3rem",
+                  },
+                  "& .MuiSelect-select:focus": {
+                    backgroundColor: neutralLight,
+                  },
+                }}
+                input={<InputBase />}
               >
-                {page}
-              </Button>
-            ))}
+                <MenuItem value={fullName}>Current User: {fullName}</MenuItem>
+                <MenuItem onClick={() => navigate(`/profile/${userId}`)}>
+                  View Profile
+                </MenuItem>
+                <MenuItem onClick={() => dispatch(setLogout())}>
+                  Log Out
+                </MenuItem>
+              </Select>
+            </FormControl>
+          ) : (
+            <Typography
+              fontWeight="500"
+              fontSize="1.1rem"
+              onClick={() => navigate("/login")}
+              sx={{
+                "&:hover": {
+                  color: primaryLight,
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Login/Signup
+            </Typography>
+          )}
+        </FlexBetween>
+      ) : (
+        <IconButton
+          onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+        >
+          <Menu />
+        </IconButton>
+      )}
+
+      {/* MOBILE NAV */}
+      {!isNonMobileScreens && isMobileMenuToggled && (
+        <Box
+          position="fixed"
+          right="0"
+          bottom="0"
+          height="100%"
+          zIndex="10"
+          maxWidth="500px"
+          minWidth="300px"
+          backgroundColor={background}
+        >
+          {/* CLOSE ICON */}
+          <Box display="flex" justifyContent="flex-end" p="1rem">
+            <IconButton
+              onClick={() => setIsMobileMenuToggled(!isMobileMenuToggled)}
+            >
+              <Close />
+            </IconButton>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+          {/* MENU ITEMS */}
+          <FlexBetween
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="3rem"
+          >
+            <IconButton
+              onClick={() => dispatch(setMode())}
+              sx={{ fontSize: "25px" }}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+              {theme.palette.mode === "dark" ? (
+                <DarkMode sx={{ fontSize: "25px" }} />
+              ) : (
+                <LightMode sx={{ color: dark, fontSize: "25px" }} />
+              )}
+            </IconButton>
+            {isLoggedIn ? (
+              <FormControl variant="standard" value={fullName}>
+                <Select
+                  value={fullName}
+                  sx={{
+                    backgroundColor: neutralLight,
+                    width: "150px",
+                    borderRadius: "0.25rem",
+                    p: "0.25rem 1rem",
+                    "& .MuiSvgIcon-root": {
+                      pr: "0.25rem",
+                      width: "3rem",
+                    },
+                    "& .MuiSelect-select:focus": {
+                      backgroundColor: neutralLight,
+                    },
+                  }}
+                  input={<InputBase />}
+                >
+                  <MenuItem value={fullName}>
+                    <Typography>{fullName}</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => dispatch(setLogout())}>
+                    Log Out
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            ) : (
+              <Typography
+                fontWeight="500"
+                fontSize="1.1rem"
+                onClick={() => navigate("/login")}
+                sx={{
+                  "&:hover": {
+                    color: primaryLight,
+                    cursor: "pointer",
+                  },
+                }}
+              >
+                Login
+              </Typography>
+            )}
+          </FlexBetween>
+        </Box>
+      )}
+    </FlexBetween>
   );
-}
+};
+
 export default NavBar;
