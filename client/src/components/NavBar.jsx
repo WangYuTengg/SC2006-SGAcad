@@ -31,25 +31,20 @@ const NavBar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
+  const [fullName, setFullName] = useState("");
+
   const isLogin = () => {
     if (user !== null) {
       setIsLoggedIn(true);
-      fullName = `${user.firstName} ${user.lastName}`;
+      setFullName(`${user.firstName} ${user.lastName}`);
     } else {
       setIsLoggedIn(false);
     }
   };
 
-  const getFullName = () => {
-    if (isLoggedIn) return (fullName = `${user.firstName} ${user.lastName}`);
-    else return "Default User";
-  };
-
-  const fullName = getFullName();
-
   useEffect(() => {
     isLogin();
-  });
+  }, [user]);
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
