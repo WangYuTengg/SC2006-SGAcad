@@ -6,7 +6,7 @@ import LoginPage from './pages/LoginPage';
 import Layout from './components/Layout';
 import { useMemo } from "react";
 import { createTheme } from '@mui/material/styles';
-import { themeSettings } from 'theme';
+import { themeSettings } from './theme';
 import { useSelector } from 'react-redux';
 
 export default function App() {
