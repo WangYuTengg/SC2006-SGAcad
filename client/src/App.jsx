@@ -4,7 +4,7 @@ import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
 import SubmitSpotPage from "./pages/SubmitSpotPage";
-import StudySpotPage from './pages/StudySpotPage';
+import StudySpotPage from "./pages/StudySpotPage";
 import Layout from "./components/Layout";
 import { useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
@@ -32,8 +32,8 @@ export default function App() {
                 path="/SubmitStudySpot"
                 element={isAuth ? <SubmitSpotPage /> : <Navigate to="/" />}
               />
-              <Route path = '/studyspots/:spotId' element={<StudySpotPage />} />
-        </Route>
+              <Route path="/studyspots/:spotId" element={<StudySpotPage />} />
+            </Route>
           </Routes>
         </CssBaseline>
       </ThemeProvider>
