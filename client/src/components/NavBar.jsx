@@ -79,6 +79,21 @@ const NavBar = () => {
             </IconButton>
           </FlexBetween>
         )}
+        {isLoggedIn && (
+          <Typography
+            fontWeight="500"
+            fontSize="1.1rem"
+            onClick={() => navigate("/SubmitStudySpot")}
+            sx={{
+              "&:hover": {
+                color: primaryLight,
+                cursor: "pointer",
+              },
+            }}
+          >
+            Submit a study spot
+          </Typography>
+        )}
       </FlexBetween>
 
       {/* DESKTOP NAV */}

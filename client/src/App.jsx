@@ -1,5 +1,5 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
@@ -27,7 +27,10 @@ export default function App() {
                 path="/profile/:userId"
                 element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
               />
-              <Route path="/SubmitStudySpot" element={<SubmitSpotPage />} />
+              <Route
+                path="/SubmitStudySpot"
+                element={isAuth ? <SubmitSpotPage /> : <Navigate to="/" />}
+              />
             </Route>
           </Routes>
         </CssBaseline>
