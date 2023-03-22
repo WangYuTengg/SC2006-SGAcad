@@ -207,11 +207,11 @@ const Form = () => {
           </Box>
 
           {/* BUTTONS */}
-          <Box>
+          <Box textAlign="center">
             <Button
-              fullWidth
               type="submit"
               sx={{
+                width: 140,
                 m: "2rem 0",
                 p: "1rem",
                 backgroundColor: palette.primary.main,
