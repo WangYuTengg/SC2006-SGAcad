@@ -24,6 +24,7 @@ const NavBar = () => {
   const user = useSelector((state) => state.user);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
+  // THEME
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
@@ -31,12 +32,14 @@ const NavBar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
+  // SET USER
   const [fullName, setFullName] = useState("");
-
+  const [userId, setUserId] = useState("");
   const isLogin = () => {
     if (user !== null) {
       setIsLoggedIn(true);
       setFullName(`${user.firstName} ${user.lastName}`);
+      setUserId(`${user._id}`);
     } else {
       setIsLoggedIn(false);
     }
@@ -94,7 +97,7 @@ const NavBar = () => {
                 value={fullName}
                 sx={{
                   backgroundColor: neutralLight,
-                  width: "150px",
+                  width: "fit-content",
                   borderRadius: "0.25rem",
                   p: "0.25rem 1rem",
                   "& .MuiSvgIcon-root": {
@@ -107,8 +110,9 @@ const NavBar = () => {
                 }}
                 input={<InputBase />}
               >
-                <MenuItem value={fullName}>
-                  <Typography>{fullName}</Typography>
+                <MenuItem value={fullName}>Current User: {fullName}</MenuItem>
+                <MenuItem onClick={() => navigate(`/profile/${userId}`)}>
+                  View Profile
                 </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>
                   Log Out
