@@ -133,24 +133,6 @@ const NavBar = () => {
             </IconButton>
           </FlexBetween>
         )}
-        {isLoggedIn && (
-          <>
-            <Typography
-              fontWeight="500"
-              fontSize="1.1rem"
-              onClick={handleSubmitSpotModalOpen}
-              sx={{
-                "&:hover": {
-                  color: primaryLight,
-                  cursor: "pointer",
-                },
-              }}
-            >
-              Submit a study spot
-            </Typography>
-            {renderSubmitSpotModal()}
-          </>
-        )}
       </FlexBetween>
 
       {/* DESKTOP NAV */}
@@ -186,10 +168,14 @@ const NavBar = () => {
                 <MenuItem onClick={() => navigate(`/profile/${userId}`)}>
                   View Profile
                 </MenuItem>
+                <MenuItem onClick={handleSubmitSpotModalOpen}>
+                  Submit Study Spot
+                </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>
                   Log Out
                 </MenuItem>
               </Select>
+              {submitSpotModalOpen && renderSubmitSpotModal()}
             </FormControl>
           ) : (
             <Typography
@@ -277,10 +263,14 @@ const NavBar = () => {
                   <MenuItem onClick={() => navigate(`/profile/${userId}`)}>
                     View Profile
                   </MenuItem>
+                  <MenuItem onClick={() => handleSubmitSpotModalOpen}>
+                    Submit Study Spot
+                  </MenuItem>
                   <MenuItem onClick={() => dispatch(setLogout())}>
                     Log Out
                   </MenuItem>
                 </Select>
+                {submitSpotModalOpen && renderSubmitSpotModal()}
               </FormControl>
             ) : (
               <Typography
