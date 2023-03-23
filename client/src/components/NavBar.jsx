@@ -9,12 +9,14 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
+  Modal,
 } from "@mui/material";
 import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
+import SubmitSpotForm from "./SubmitSpotForm";
 
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -41,14 +43,42 @@ const NavBar = () => {
       setIsLoggedIn(true);
       if (user.firstName && user.lastName)
         setFullName(`${user.firstName} ${user.lastName}`);
-      if (user._id)
-        setUserId(`${user._id}`);
-    } 
-    else {
+      if (user._id) setUserId(`${user._id}`);
+    } else {
       setIsLoggedIn(false);
     }
     console.log(isLoggedIn);
   }, [user]);
+
+  // MODALS
+  const [submitSpotModalOpen, setSubmitSpotModalOpen] = useState(false);
+  const handleSubmitSpotModalOpen = () => setSubmitSpotModalOpen(true);
+  const handleSubmitSpotModalClose = () => setSubmitSpotModalOpen(false);
+  const modalStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+  const renderSubmitSpotModal = () => {
+    return (
+      <Modal
+        title="Submit a Study Spot"
+        open={submitSpotModalOpen}
+        onClose={handleSubmitSpotModalClose}
+        footer={null}
+      >
+        <Box sx={modalStyle}>
+          <SubmitSpotForm />
+        </Box>
+      </Modal>
+    );
+  };
 
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
@@ -81,19 +111,22 @@ const NavBar = () => {
           </FlexBetween>
         )}
         {isLoggedIn && (
-          <Typography
-            fontWeight="500"
-            fontSize="1.1rem"
-            onClick={() => navigate("/SubmitStudySpot")}
-            sx={{
-              "&:hover": {
-                color: primaryLight,
-                cursor: "pointer",
-              },
-            }}
-          >
-            Submit a study spot
-          </Typography>
+          <>
+            <Typography
+              fontWeight="500"
+              fontSize="1.1rem"
+              onClick={handleSubmitSpotModalOpen}
+              sx={{
+                "&:hover": {
+                  color: primaryLight,
+                  cursor: "pointer",
+                },
+              }}
+            >
+              Submit a study spot
+            </Typography>
+            {renderSubmitSpotModal()}
+          </>
         )}
       </FlexBetween>
 
@@ -217,8 +250,9 @@ const NavBar = () => {
                   }}
                   input={<InputBase />}
                 >
-                  <MenuItem value={fullName}>
-                    <Typography>{fullName}</Typography>
+                  <MenuItem value={fullName}>Current User: {fullName}</MenuItem>
+                  <MenuItem onClick={() => navigate(`/profile/${userId}`)}>
+                    View Profile
                   </MenuItem>
                   <MenuItem onClick={() => dispatch(setLogout())}>
                     Log Out

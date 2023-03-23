@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
-import SubmitSpotPage from "./pages/SubmitSpotPage";
 import StudySpotPage from "./pages/StudySpotPage";
 import Layout from "./components/Layout";
 import { useMemo } from "react";
@@ -27,10 +26,6 @@ export default function App() {
               <Route
                 path="/profile/:userId"
                 element={isAuth ? <ProfilePage /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/SubmitStudySpot"
-                element={isAuth ? <SubmitSpotPage /> : <Navigate to="/" />}
               />
               <Route path="/studyspots/:spotId" element={<StudySpotPage />} />
             </Route>
