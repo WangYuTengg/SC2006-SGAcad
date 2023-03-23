@@ -6,6 +6,8 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -50,6 +52,8 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+  const [snackbarOpen, setSnackBarOpen] = useState(false);
+  const handleSnackbarClose = () => setSnackBarOpen(false);
 
   const register = async (values, onSubmitProps) => {
     // this allows us to send form info with image
@@ -85,7 +89,7 @@ const Form = () => {
 
     // fail to log in
     if (loggedIn.msg) {
-      alert(loggedIn.msg);
+      setSnackBarOpen(true);
     } else {
       dispatch(
         setLogin({
@@ -93,7 +97,6 @@ const Form = () => {
           token: loggedIn.token,
         })
       );
-      alert("You have successfully logged in!");
       navigate("/");
     }
   };
@@ -226,6 +229,16 @@ const Form = () => {
             >
               {isLogin ? "LOGIN" : "REGISTER"}
             </Button>
+            <Snackbar
+              anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
+              autoHideDuration={3000}
+              open = {snackbarOpen}
+              onClose = {handleSnackbarClose}
+            >
+              <Alert sx={{width: "100%", fontSize: "1.2rem"}} severity="warning">
+                Invalid Credentials
+              </Alert>
+            </Snackbar>
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
