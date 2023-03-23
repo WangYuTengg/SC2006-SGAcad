@@ -64,14 +64,19 @@ const NavBar = () => {
     width: 500,
     bgcolor: "background.paper",
     boxShadow: 24,
-    height: 590,
-    p: 4,
+    p: 3,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 3,
   };
 
   const buttonStyle = {
     width: 140,
     p: "1rem",
     m: "1rem 0",
+    borderRadius: 2,
     backgroundColor: palette.primary.main,
     color: palette.background.alt,
     "&:hover": { color: palette.primary.main },
@@ -88,10 +93,10 @@ const NavBar = () => {
         footer={null}
       >
         <Box sx={modalStyle} textAlign="center">
-          <Typography sx={{pb: 2}}>Submit a study Spot!</Typography>
+          <Typography sx={{ pb: 2 }}>Submit a study Spot!</Typography>
           <SubmitSpotForm />
           <Button sx={buttonStyle} onClick={handleSubmitSpotModalClose}>
-              Close
+            Close
           </Button>
         </Box>
       </Modal>
