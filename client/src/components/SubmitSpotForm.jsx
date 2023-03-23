@@ -35,7 +35,7 @@ const initialValuesSpot = {
 const SubmitSpotForm = () => {
   const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
-
+  const handleFormSubmit = async (values, onSubmitProps) => {}
   return (
     <Formik
       onSubmit={handleFormSubmit}
