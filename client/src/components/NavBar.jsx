@@ -61,19 +61,22 @@ const NavBar = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     bgcolor: "background.paper",
     boxShadow: 24,
+    height: 590,
     p: 4,
   };
 
   const buttonStyle = {
     width: 140,
     p: "1rem",
-    m: "2rem 0",
+    m: "1rem 0",
     backgroundColor: palette.primary.main,
     color: palette.background.alt,
     "&:hover": { color: palette.primary.main },
+    right: "5.8rem",
+    bottom: "4.25rem",
   };
 
   const renderSubmitSpotModal = () => {
@@ -85,9 +88,10 @@ const NavBar = () => {
         footer={null}
       >
         <Box sx={modalStyle} textAlign="center">
+          <Typography sx={{pb: 2}}>Submit a study Spot!</Typography>
           <SubmitSpotForm />
           <Button sx={buttonStyle} onClick={handleSubmitSpotModalClose}>
-              Submit
+              Close
           </Button>
         </Box>
       </Modal>

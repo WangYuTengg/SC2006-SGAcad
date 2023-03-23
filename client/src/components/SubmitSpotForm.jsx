@@ -4,6 +4,7 @@ import {
   useMediaQuery,
   Typography,
   useTheme,
+  Button,
 } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
@@ -36,6 +37,15 @@ const SubmitSpotForm = () => {
   const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const handleFormSubmit = async (values, onSubmitProps) => {}
+  const buttonStyle = {
+    width: 140,
+    p: "1rem",
+    backgroundColor: palette.primary.main,
+    color: palette.background.alt,
+    "&:hover": { color: palette.primary.main },
+    left: "5.8rem"
+  };
+  
   return (
     <Formik
       onSubmit={handleFormSubmit}
@@ -52,6 +62,11 @@ const SubmitSpotForm = () => {
         setFieldValue,
       }) => (
         <form onSubmit={handleSubmit}>
+          <FlexBetween 
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+            gap="2rem">
           <Box
             display="grid"
             gap="30px"
@@ -143,6 +158,12 @@ const SubmitSpotForm = () => {
               </Dropzone>
             </Box>
           </Box>
+          <Box textAlign="center">
+            <Button sx={buttonStyle} type='submit'>
+              Submit
+            </Button>
+          </Box>
+          </FlexBetween>
         </form>
       )}
     </Formik>
