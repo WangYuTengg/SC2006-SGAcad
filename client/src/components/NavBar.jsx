@@ -9,6 +9,7 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
+  Button,
   Modal,
 } from "@mui/material";
 import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
@@ -29,6 +30,7 @@ const NavBar = () => {
 
   // THEME
   const theme = useTheme();
+  const { palette } = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
@@ -61,10 +63,19 @@ const NavBar = () => {
     transform: "translate(-50%, -50%)",
     width: 400,
     bgcolor: "background.paper",
-    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
+
+  const buttonStyle = {
+    width: 140,
+    p: "1rem",
+    m: "2rem 0",
+    backgroundColor: palette.primary.main,
+    color: palette.background.alt,
+    "&:hover": { color: palette.primary.main },
+  };
+
   const renderSubmitSpotModal = () => {
     return (
       <Modal
@@ -73,8 +84,11 @@ const NavBar = () => {
         onClose={handleSubmitSpotModalClose}
         footer={null}
       >
-        <Box sx={modalStyle}>
+        <Box sx={modalStyle} textAlign="center">
           <SubmitSpotForm />
+          <Button sx={buttonStyle} onClick={handleSubmitSpotModalClose}>
+              Submit
+          </Button>
         </Box>
       </Modal>
     );
