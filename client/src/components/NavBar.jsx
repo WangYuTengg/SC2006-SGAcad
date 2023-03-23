@@ -22,6 +22,7 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   // THEME
@@ -35,18 +36,18 @@ const NavBar = () => {
   // SET USER
   const [fullName, setFullName] = useState("");
   const [userId, setUserId] = useState("");
-  const isLogin = () => {
-    if (user !== null) {
+  useEffect(() => {
+    if (user && user !== null && token !== null) {
       setIsLoggedIn(true);
-      setFullName(`${user.firstName} ${user.lastName}`);
-      setUserId(`${user._id}`);
-    } else {
+      if (user.firstName && user.lastName)
+        setFullName(`${user.firstName} ${user.lastName}`);
+      if (user._id)
+        setUserId(`${user._id}`);
+    } 
+    else {
       setIsLoggedIn(false);
     }
-  };
-
-  useEffect(() => {
-    isLogin();
+    console.log(isLoggedIn);
   }, [user]);
 
   return (

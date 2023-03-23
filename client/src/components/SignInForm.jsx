@@ -82,13 +82,18 @@ const Form = () => {
     });
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
-    if (loggedIn) {
+
+    // fail to log in
+    if (loggedIn.msg) {
+      alert(loggedIn.msg);
+    } else {
       dispatch(
         setLogin({
           user: loggedIn.user,
           token: loggedIn.token,
         })
       );
+      alert("You have successfully logged in!");
       navigate("/");
     }
   };
