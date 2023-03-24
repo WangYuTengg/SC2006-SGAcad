@@ -9,21 +9,17 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state/index";
-import Dropzone from "react-dropzone";
-import FlexBetween from "./FlexBetween";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
-  picture: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -52,29 +48,35 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
-  const [snackbarOpen, setSnackBarOpen] = useState(false);
-  const handleSnackbarClose = () => setSnackBarOpen(false);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+  const handleOpenSnackbar = (message, severity) => {
+    setSnackbar({ open: true, message, severity });
+  };
 
   const register = async (values, onSubmitProps) => {
-    // this allows us to send form info with image
-    const formData = new FormData();
-    for (let value in values) {
-      formData.append(value, values[value]);
-    }
-    formData.append("picturePath", values.picture.name);
-
-    const savedUserResponse = await fetch(
-      "http://localhost:3001/auth/register",
-      {
+    try {
+      const response = await fetch("http://localhost:3001/auth/register", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (data.error) {
+        handleOpenSnackbar("Email is already in use!", "error");
+      } else {
+        handleOpenSnackbar("Registration success, please log in.", "success");
+        onSubmitProps.resetForm();
+        setPageType("login");
       }
-    );
-    const savedUser = await savedUserResponse.json();
-    onSubmitProps.resetForm();
-
-    if (savedUser) {
-      setPageType("login");
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -87,9 +89,8 @@ const Form = () => {
     const loggedIn = await loggedInResponse.json();
     onSubmitProps.resetForm();
 
-    // fail to log in
     if (loggedIn.msg) {
-      setSnackBarOpen(true);
+      handleOpenSnackbar("Invalid Credentials", "error");
     } else {
       dispatch(
         setLogin({
@@ -119,7 +120,6 @@ const Form = () => {
         handleBlur,
         handleChange,
         handleSubmit,
-        setFieldValue,
         resetForm,
       }) => (
         <form onSubmit={handleSubmit}>
@@ -155,39 +155,6 @@ const Form = () => {
                   helperText={touched.lastName && errors.lastName}
                   sx={{ gridColumn: "span 2" }}
                 />
-                <Box
-                  gridColumn="span 4"
-                  border={`1px solid ${palette.neutral.medium}`}
-                  borderRadius="5px"
-                  p="1rem"
-                >
-                  <Dropzone
-                    acceptedFiles=".jpg,.jpeg,.png"
-                    multiple={false}
-                    onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
-                    }
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <Box
-                        {...getRootProps()}
-                        border={`2px dashed ${palette.primary.main}`}
-                        p="1rem"
-                        sx={{ "&:hover": { cursor: "pointer" } }}
-                      >
-                        <input {...getInputProps()} />
-                        {!values.picture ? (
-                          <p>Add Picture Here</p>
-                        ) : (
-                          <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
-                            <EditOutlinedIcon />
-                          </FlexBetween>
-                        )}
-                      </Box>
-                    )}
-                  </Dropzone>
-                </Box>
               </>
             )}
 
@@ -229,16 +196,6 @@ const Form = () => {
             >
               {isLogin ? "LOGIN" : "REGISTER"}
             </Button>
-            <Snackbar
-              anchorOrigin={{ vertical:'bottom', horizontal: 'center' }}
-              autoHideDuration={3000}
-              open = {snackbarOpen}
-              onClose = {handleSnackbarClose}
-            >
-              <Alert sx={{width: "100%", fontSize: "1.2rem"}} severity="warning">
-                Invalid Credentials
-              </Alert>
-            </Snackbar>
             <Typography
               onClick={() => {
                 setPageType(isLogin ? "register" : "login");
@@ -257,6 +214,22 @@ const Form = () => {
                 ? "Don't have an account? Sign Up here."
                 : "Already have an account? Login here."}
             </Typography>
+            <Snackbar
+              open={snackbar.open}
+              autoHideDuration={4000}
+              anchorOrigin={{ vertical: "top", horizontal: "center" }}
+              onClose={handleCloseSnackbar}
+            >
+              <Alert
+                sx={{ width: "100%", fontSize: "1.1rem" }}
+                elevation={6}
+                variant="filled"
+                onClose={handleCloseSnackbar}
+                severity={snackbar.severity}
+              >
+                {snackbar.message}
+              </Alert>
+            </Snackbar>
           </Box>
         </form>
       )}
