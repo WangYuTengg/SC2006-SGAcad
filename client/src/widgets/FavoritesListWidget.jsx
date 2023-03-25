@@ -37,7 +37,7 @@ const FavoritesListWidget = ({ userId }) => {
                 fontWeight="500"
                 sx={{ mb: "1.5rem" }}
             >
-                Favorite Study Spot List
+                Favorited Study Spots
             </Typography>
             <Box display="flex" flexDirection="column" gap="1.5rem">
                 {favoriteSpots.map((favorite) => (
@@ -45,8 +45,8 @@ const FavoritesListWidget = ({ userId }) => {
                         key={favorite._id}
                         favoriteId={favorite._id}
                         name={`${favorite.name}`}
-                        subtitle={"favorite"}
-                        picturePath={""}
+                        subtitle={favorite.location.address}
+                        picturePath={favorite.picturePath}
                     />
                 ))}
             </Box>

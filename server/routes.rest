@@ -109,7 +109,7 @@ GET http://localhost:3001/users/641e817758326ac9e3d0b462
 ###
 
 // add studyspot to user favourites
-PATCH http://localhost:3001/studyspots/641ec693fa85327b95899bb6/641e817758326ac9e3d0b462
+PATCH http://localhost:3001/studyspots/641ec77dfa85327b95899bb9/641e817758326ac9e3d0b462
 
 ###
 

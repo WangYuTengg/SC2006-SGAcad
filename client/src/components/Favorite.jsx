@@ -40,6 +40,34 @@ const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
     return (
         <FlexBetween>
             <FlexBetween gap ="1rem">
+                <Box onClick={() => {
+                        navigate(`/studyspots/${favoriteId}`);
+                        navigate(0);
+                    }}
+                >
+                    <Box 
+                        width={"55px"} 
+                        height={"55px"} 
+                        sx={{
+                            "&:hover": {
+                                color: palette.primary.light,
+                                cursor: "pointer"
+                            }
+                        }}
+                    >
+                        <img
+                            style={{ 
+                                objectFit: "cover", 
+                                borderRadius: "50%", 
+                                height: "55px",
+                            }}
+                            width={"55px"}
+                            height={"55px"}
+                            alt="user"
+                            src={picturePath}
+                        />
+                    </Box>
+                </Box>
                 <Box 
                     onClick={() => {
                         navigate(`/studyspots/${favoriteId}`);
