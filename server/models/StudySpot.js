@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const StudySpotSchema = new mongoose.Schema(
     {
+        spotId: {
+            type: Number,
+            required: true,
+        },
+
         name: {
             type: String,
             required: true,
@@ -17,6 +22,16 @@ const StudySpotSchema = new mongoose.Schema(
             default: ""
         },
         location: {
+            address: {
+                type: String,
+                required: true,
+            },
+            postal: {
+                type: Number,
+                minlength: 6,
+                maxlength: 6,
+                required: true,
+            },
             type: {
                 type: String,
                 enum: ['Point'],
@@ -26,7 +41,7 @@ const StudySpotSchema = new mongoose.Schema(
                 type: [Number],
                 required: true
             }
-        }
+        },
     },
     { timestamps: true}
 );

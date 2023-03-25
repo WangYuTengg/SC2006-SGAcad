@@ -1,16 +1,78 @@
-// create study spot
+// create study spots
 POST http://localhost:3001/studyspots/create
 Content-Type: application/json
 
 {
-    "name": "test1",
-    "description": "this is a test1 studyspot",
+    "spotId": 2,
+    "name": "The Coffee Bean & Tea Leaf - JCube",
+    "description": "Coffeehouse chain serving a variety of beverages including its signature ice-blended options. Open till 11pm.",
     "picturePath": "",
     "location": {
-        "type" : "Point",
+        "address": "2 Jurong East Central 1, #01-22/23 JCube, Singapore",
+        "postal": 609731,
+        "type": "Point",
         "coordinates" : [
-            -122.5,
-            37.7
+            1.3336889324502221, 103.74022156829723
+        ]
+    }
+}
+
+###
+// create another study spot 
+POST http://localhost:3001/studyspots/create
+Content-Type: application/json
+
+{
+    "spotId": 3,
+    "name": "Lee Wee Nam Library",
+    "description": "NTU University library in Singapore. Fully air-conditioned and open till 9.30pm on weekdays. Available to students only",
+    "picturePath": "https://lh3.googleusercontent.com/p/AF1QipOZHSMHRtmM77vDb_4gJDEQ8uSTL4mS7vbMle0a=s680-w680-h510",
+    "location": {
+        "address": "50 Nanyang Avenue, Blk NS3-03-01",
+        "postal": 639798,
+        "type": "Point",
+        "coordinates" : [
+            1.3476778499782194, 103.68097197014353
+        ]
+    }
+}
+
+###
+// create another study spot 
+POST http://localhost:3001/studyspots/create
+Content-Type: application/json
+
+{
+    "spotId": 4,
+    "name": "Lowercase Cafe",
+    "description": "Free wifi provided. Located in LASELLE College of Arts. Hours: Mon to Sat 8AM to 8PM. The quieter ambience and the school-like atmosphere are a couple of clear distinctions. But most of all is its unique architecture that allows an abundance of sunlight to pass during the day.",
+    "picturePath": "https://lh3.googleusercontent.com/p/AF1QipMW83dUN0c0HHCoPwiXKOcdzZiY44WyKTMbkX6S=s680-w680-h510",
+    "location": {
+        "address": "Blk D #01-01, 1 McNally St",
+        "postal":  187940,
+        "type": "Point",
+        "coordinates" : [
+            1.3028283326926806, 103.85202617273396
+        ]
+    }
+}
+
+###
+// create another study spot 
+POST http://localhost:3001/studyspots/create
+Content-Type: application/json
+
+{
+    "spotId": 1,
+    "name": "The Book Cafe",
+    "description": "As the name suggests, The Book Cafe is more likely designed for the book worms. A go-to study cafe in Singapore where you can catch the positive vibes to study or work.",
+    "picturePath": "https://lh3.googleusercontent.com/p/AF1QipOqRA4mUSostbDEWT4LNm-ooS5thK3hf9U-NHsk=s680-w680-h510",
+    "location": {
+        "address": "20 Martin Rd, #01-02 Seng Kee Building, Singapore",
+        "postal": 239070,
+        "type": "Point",
+        "coordinates" : [
+            1.2912729566797299, 103.83907758163993
         ]
     }
 }
