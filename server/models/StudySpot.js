@@ -4,6 +4,7 @@ const StudySpotSchema = new mongoose.Schema(
     {
         spotId: {
             type: Number,
+            unique: true,
             required: true,
         },
 
