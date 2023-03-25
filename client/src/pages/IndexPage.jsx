@@ -22,6 +22,7 @@ const IndexPage = () => {
     getDefaultSpot();
   }, []);
 
+  if (!defaultSpot) return null;
   return (
     <Box>
       <Box
