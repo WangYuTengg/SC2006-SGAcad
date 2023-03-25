@@ -21,8 +21,8 @@ export const getUserFavoriteSpots = async (req, res) => {
         user.favoriteSpots.map((id) => StudySpot.findById(id))
       );
       const formattedFavorites = favorites.map(
-        ({_id, name, description, picturePath, location}) => {
-          return {_id, name, description, picturePath, location};
+        ({_id, spotId, name, description, picturePath, location}) => {
+          return {_id, spotId, name, description, picturePath, location};
         }
       );
 
@@ -52,8 +52,8 @@ export const addRemoveFavorites = async (req, res) => {
         user.favoriteSpots.map((id) => StudySpot.findById(id))
       );
       const formattedFavorites = favorites.map(
-        ({_id, name, description, picturePath, location}) => {
-          return {_id, name, description, picturePath, location};
+        ({_id, spotId, name, description, picturePath, location}) => {
+          return {_id, spotId, name, description, picturePath, location};
         }
       );
 

@@ -4,7 +4,7 @@ const initialState = {
     mode: "light",
     user: null,
     token: null,
-    favorites: [],
+    favoriteSpots: [],
 };
 
 export const authSlice = createSlice({
@@ -20,9 +20,9 @@ export const authSlice = createSlice({
             state.user = null;
             state.token = null;
         },
-        setFavorites: (state, action) => {
+        setFavoriteSpots: (state, action) => {
             if(state.user) {
-                state.user.favorites = action.payload.favorites;
+                state.user.favoriteSpots = action.payload.favoriteSpots;
             } else {
                 console.error("No favourite spots");
             }
@@ -42,5 +42,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setMode, setLogin, setLogout, setFavorites} = authSlice.actions;
+export const { setMode, setLogin, setLogout, setFavoriteSpots} = authSlice.actions;
 export default authSlice.reducer;
