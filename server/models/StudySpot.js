@@ -17,6 +17,14 @@ const StudySpotSchema = new mongoose.Schema(
             default: ""
         },
         location: {
+            address: {
+                type: String,
+                required: true,
+            },
+            postal: {
+                type: Number,
+                required: true,
+            },
             type: {
                 type: String,
                 enum: ['Point'],
