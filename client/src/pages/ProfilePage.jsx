@@ -1,9 +1,13 @@
-import { Typography, useTheme } from "@mui/material";
+import { Divider, Typography, useTheme } from "@mui/material";
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FavoritesListWidget from "../widgets/FavoritesListWidget.jsx";
+import { Avatar } from '@mui/material';
+import FlexBetween from "../components/FlexBetween";
+import { FirstPage } from "@mui/icons-material";
+import { borderRadius } from "@mui/system";
 
 const ProfilePage = () => {
   const theme = useTheme();
@@ -27,15 +31,39 @@ const ProfilePage = () => {
 
   if (!user) return null;
 
-  const { firstName, lastName, email, favoriteSpots, reviews, location } = user;
+  const { firstName, lastName, email, favoriteSpots, reviews, location, picturePath } = user;
+
+  const containerStyle = {
+    display: "flex",
+  };
+
+  const profileBox = {
+    width: "20%",
+    height: "20%",
+  };
+
+  const favouriteBox = {
+    width: "50%",
+  };
+
   return (
-    <div>
-      <Typography>
-        Profile page of {firstName} {lastName}
-      </Typography>
-      <Typography>Email: {email} </Typography>
-      <Typography>Location: {location} </Typography>
-      <FavoritesListWidget userId={userId} />
+    <div className="container" style={containerStyle}>
+      <div className="profile" style={profileBox}>
+        <Box p="1rem 1rem 1rem 1rem" m="1rem 0 0 1rem" sx={{ border: 2, borderRadius: '10px', color: 'secondary.main' }}>
+          <FlexBetween pl = "40%" pb = "0.5rem">
+            <Avatar sx={{width: 56, height: 56}} src={picturePath}></Avatar>
+          </FlexBetween>
+          <Divider />
+          <Typography sx={{ pt: "0.5rem", textAlign: 'center' }}> {firstName} {lastName} </Typography>
+          <Typography sx={{ textAlign: 'center' }}> {email} </Typography>
+          <Typography sx={{ textAlign: 'center' }}>Location: {location} </Typography>
+        </Box>
+      </div>
+      <div className="favourites" style={favouriteBox}>
+        <Box p="1rem 1rem 1rem 1rem" m="1rem 0 0 1rem" sx={{ border: 0, borderRadius: '10px', color: 'primary.main' }}>
+          <FavoritesListWidget userId={userId} />  
+        </Box>
+      </div>  
     </div>
   );
 };
