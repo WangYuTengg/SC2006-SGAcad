@@ -8,6 +8,7 @@ import { Avatar } from '@mui/material';
 import FlexBetween from "../components/FlexBetween";
 import { FirstPage } from "@mui/icons-material";
 import { borderRadius } from "@mui/system";
+import CurrentLocation from "../components/CurrentPosition.jsx";
 
 const ProfilePage = () => {
   const theme = useTheme();
@@ -46,6 +47,7 @@ const ProfilePage = () => {
     width: "50%",
   };
 
+
   return (
     <div className="container" style={containerStyle}>
       <div className="profile" style={profileBox}>
@@ -54,16 +56,16 @@ const ProfilePage = () => {
             <Avatar sx={{width: 56, height: 56}} src={picturePath}></Avatar>
           </FlexBetween>
           <Divider />
-          <Typography sx={{ pt: "0.5rem", textAlign: 'center' }}> {firstName} {lastName} </Typography>
-          <Typography sx={{ textAlign: 'center' }}> {email} </Typography>
-          <Typography sx={{ textAlign: 'center' }}>Location: {location} </Typography>
+          <Typography sx={{ pt: "0.5rem", textAlign: 'center' }}>Name: {firstName} {lastName} </Typography>
+          <Typography sx={{ textAlign: 'center' }}>Email: {email} </Typography>
+          <Typography sx={{ textAlign: 'center' }}>Location: {<CurrentLocation />} </Typography>
         </Box>
       </div>
       <div className="favourites" style={favouriteBox}>
-        <Box p="1rem 1rem 1rem 1rem" m="1rem 0 0 1rem" sx={{ border: 0, borderRadius: '10px', color: 'primary.main' }}>
+        <Box p="1rem 1rem 1rem 1rem" m="1rem 0 0 1rem">
           <FavoritesListWidget userId={userId} />  
         </Box>
-      </div>  
+      </div>
     </div>
   );
 };
