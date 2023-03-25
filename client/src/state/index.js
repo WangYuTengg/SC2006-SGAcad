@@ -4,7 +4,7 @@ const initialState = {
     mode: "light",
     user: null,
     token: null,
-    studySpots: [],
+    favorites: [],
 };
 
 export const authSlice = createSlice({
@@ -20,13 +20,20 @@ export const authSlice = createSlice({
             state.user = null;
             state.token = null;
         },
+        setFavorites: (state, action) => {
+            if(state.user) {
+                state.user.favorites = action.payload.favorites;
+            } else {
+                console.error("No favourite spots");
+            }
+        }
         /** 
         setStudySpots: (state, action) => {
             state.studySpots = action.payload.studySpots;
         },
         setStudySpot: (state, action) => {
             const updatedStudySpots = state.studySpots.map((spot) => {
-                if (spot._id === action.payload.id) return action.payload.spot;
+                if (spot._id === action.payload._id) return action.payload.spot;
                 return spot; 
             });
             state.studySpots = updatedStudySpots;
@@ -35,5 +42,5 @@ export const authSlice = createSlice({
     }
 })
 
-export const { setMode, setLogin, setLogout} = authSlice.actions;
+export const { setMode, setLogin, setLogout, setFavorites} = authSlice.actions;
 export default authSlice.reducer;

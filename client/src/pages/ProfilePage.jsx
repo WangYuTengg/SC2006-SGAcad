@@ -3,6 +3,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import FavoritesListWidget from "../widgets/FavoritesListWidget.jsx";
 
 const ProfilePage = () => {
   const theme = useTheme();
@@ -34,6 +35,7 @@ const ProfilePage = () => {
       </Typography>
       <Typography>Email: {email} </Typography>
       <Typography>Location: {location} </Typography>
+      <FavoritesListWidget userId={userId} />
     </div>
   );
 };

@@ -16,8 +16,17 @@ export const getUserFavoriteSpots = async (req, res) => {
     try {
       const { id } = req.params;
       const user = await User.findById(id);
-      
-      res.status(200).json(user.favoriteSpots);
+
+      const favorites = await Promise.all(
+        user.favoriteSpots.map((id) => StudySpot.findById(id))
+      );
+      const formattedFavorites = favorites.map(
+        ({_id, name, description, picturePath, location}) => {
+          return {_id, name, description, picturePath, location};
+        }
+      );
+
+      res.status(200).json(formattedFavorites);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
@@ -28,6 +37,7 @@ export const addRemoveFavorites = async (req, res) => {
     try {
       const { spotId, userId } = req.params;
       const user = await User.findById(userId);
+      const favorite = await StudySpot.findById(spotId);
 
       if (user.favoriteSpots.includes(spotId)) {
         user.favoriteSpots = user.favoriteSpots.filter((id) => id !== spotId);
@@ -38,7 +48,16 @@ export const addRemoveFavorites = async (req, res) => {
 
       await user.save();
       
-      res.status(200).json(user);
+      const favorites = await Promise.all(
+        user.favoriteSpots.map((id) => StudySpot.findById(id))
+      );
+      const formattedFavorites = favorites.map(
+        ({_id, name, description, picturePath, location}) => {
+          return {_id, name, description, picturePath, location};
+        }
+      );
+
+      res.status(200).json(formattedFavorites);
     } catch (err) {
       res.status(404).json({ message: err.message });
     }
