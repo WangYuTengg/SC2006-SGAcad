@@ -59,7 +59,6 @@ const IndexPage = () => {
             padding="2rem 1rem"
             display="flex"
             flexDirection="column"
-            border="1px solid white"
             justifyContent="center"
             alignItems="center"
             textAlign="center"
@@ -80,7 +79,6 @@ const IndexPage = () => {
           <Box
             padding="2rem 10%"
             width="100%"
-            border="1px solid white"
             display="flex"
             flexDirection="column"
           >
