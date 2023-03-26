@@ -1,27 +1,29 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import {
+  Box,
+  Typography,
+  useMediaQuery,
+  useTheme,
+  Divider,
+} from "@mui/material";
 import { useEffect, useState } from "react";
 import Map from "../components/Map";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const IndexPage = () => {
   const [spots, setSpots] = useState(null);
   const [defaultSpot, setDefaultSpot] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState(null);
+  const user = useSelector((state) => state.user);
   const defaultSpotId = "641ec083982851ff40de0aa3";
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const navigate = useNavigate();
-
-  // THEME
   const theme = useTheme();
-  const neutralLight = theme.palette.neutral.light;
-  const dark = theme.palette.neutral.dark;
-  const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
-  const alt = theme.palette.background.alt;
 
-  // initial spot on map
   const getDefaultSpot = async () => {
     const response = await fetch(
       `http://localhost:3001/studyspots/${defaultSpotId}`,
@@ -33,7 +35,6 @@ const IndexPage = () => {
     setDefaultSpot(data);
   };
 
-  // get all spots
   const getSpots = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/`, {
       method: "GET",
@@ -42,7 +43,28 @@ const IndexPage = () => {
     setSpots(data);
   };
 
-  // initialise
+  function getCurrentLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setCurrentLocation({
+            coordinates: [position.coords.latitude, position.coords.longitude],
+            type: "Point",
+          });
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }
+
+  useEffect(() => {
+    getCurrentLocation();
+  }, [user]);
+
   useEffect(() => {
     getDefaultSpot();
     getSpots();
@@ -50,7 +72,6 @@ const IndexPage = () => {
 
   if (!defaultSpot) return null;
   if (!spots) return null;
-
   return (
     <>
       {isNonMobileScreens && (
@@ -71,11 +92,14 @@ const IndexPage = () => {
               around!
             </Typography>
             <Map
-              spotLocation={defaultSpot.location}
+              spotLocation={
+                currentLocation ? currentLocation : defaultSpot.location
+              }
               width="80%"
               height="500px"
             />
           </Box>
+          <Divider></Divider>
           <Box
             padding="2rem 10%"
             width="100%"
@@ -87,7 +111,7 @@ const IndexPage = () => {
             </Typography>
             <ImageList>
               {spots.slice(0, 4).map((spot) => (
-                <Box>
+                <Box sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}>
                   <Typography
                     fontWeight="bold"
                     fontSize="1.3rem"
@@ -114,6 +138,19 @@ const IndexPage = () => {
                       position="below"
                     />
                   </ImageListItem>
+                  <Typography
+                    onClick={() => navigate(`/studyspots/${spot._id}`)}
+                    sx={{
+                      mt: -1,
+                      "&:hover": {
+                        color: primaryLight,
+                        cursor: "pointer",
+                      },
+                      textDecoration: "underline",
+                    }}
+                  >
+                    View More
+                  </Typography>
                 </Box>
               ))}
             </ImageList>
