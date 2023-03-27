@@ -22,6 +22,33 @@ const StudySpotSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        misc: {
+            freeWifi:{
+                type: String,
+                default: "Not available",
+            },
+            
+            openingHours:{
+                weekdays: {
+                    type: String,
+                    default: "8am - 9pm",
+                },
+                weekends: {
+                    type: String,
+                    default: "10am - 8pm",
+                }
+            },
+
+            phoneNumber:{
+                type: String,
+                default: "Not available"
+            },
+
+            websiteURL: {
+                type: String,
+                default: "null",
+            }
+        },
         location: {
             address: {
                 type: String,
