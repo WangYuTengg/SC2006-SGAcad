@@ -67,10 +67,11 @@ const Map = ({ currentLocation, width, height, spots }) => {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={center}
-        zoom={14}
+        zoom={12}
         onLoad={onLoad}
         onUnmount={onUnmount}
         disableDefaultUI={true}
+        clickableIcons={false}
       >
         <Marker
           position={center}
