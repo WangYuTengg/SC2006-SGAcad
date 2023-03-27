@@ -10,7 +10,7 @@ const FavoritesListWidget = ({ userId }) => {
     const { palette } = useTheme();
     const token = useSelector((state) => state.token);
     const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
-    //console.log("widget", favoriteSpots);
+    console.log("widget", favoriteSpots);
 
     const getFavorites = async() => {
         const response = await fetch(
