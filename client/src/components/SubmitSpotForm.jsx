@@ -13,7 +13,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import FlexBetween from "./FlexBetween";
+import { FlexBetween } from "./Utils";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("required"),
@@ -43,11 +43,9 @@ const SubmitSpotForm = () => {
   const handleSnackbarClose = () => setSnackBarOpen(false);
   const handleFormSubmit = async (values, onSubmitProps) => {
     try {
-      // submit form
-      // if successful, set snackbarOpen to true
       setSnackBarOpen(true);
     } catch (error) {
-      // handle error if form submission fails
+      console.error(error);
     }
   };
   const buttonStyle = {

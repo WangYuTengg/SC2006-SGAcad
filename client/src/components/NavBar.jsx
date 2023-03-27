@@ -12,12 +12,17 @@ import {
   Button,
   Modal,
 } from "@mui/material";
-import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
+import { DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
-import FlexBetween from "./FlexBetween";
 import SubmitSpotForm from "./SubmitSpotForm";
+import {
+  SubmitSpotFormModalStyle,
+  Logo,
+  FlexBetween,
+  SearchBar,
+} from "./Utils";
 
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -56,21 +61,6 @@ const NavBar = () => {
   const [submitSpotModalOpen, setSubmitSpotModalOpen] = useState(false);
   const handleSubmitSpotModalOpen = () => setSubmitSpotModalOpen(true);
   const handleSubmitSpotModalClose = () => setSubmitSpotModalOpen(false);
-  const modalStyle = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 500,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 3,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 3,
-  };
 
   const buttonStyle = {
     width: 140,
@@ -92,7 +82,7 @@ const NavBar = () => {
         onClose={handleSubmitSpotModalClose}
         footer={null}
       >
-        <Box sx={modalStyle} textAlign="center">
+        <Box sx={SubmitSpotFormModalStyle} textAlign="center">
           <Typography sx={{ pb: 2 }}>Submit a study Spot!</Typography>
           <SubmitSpotForm />
           <Button sx={buttonStyle} onClick={handleSubmitSpotModalClose}>
@@ -106,33 +96,8 @@ const NavBar = () => {
   return (
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
-        <Typography
-          fontWeight="bold"
-          fontSize="clamp(1rem, 2rem, 2.25rem)"
-          color="primary"
-          onClick={() => navigate("/")}
-          sx={{
-            "&:hover": {
-              color: primaryLight,
-              cursor: "pointer",
-            },
-          }}
-        >
-          SG Acad
-        </Typography>
-        {isNonMobileScreens && (
-          <FlexBetween
-            backgroundColor={neutralLight}
-            borderRadius="9px"
-            gap="3rem"
-            padding="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
-        )}
+        <Logo />
+        {isNonMobileScreens && <SearchBar />}
       </FlexBetween>
 
       {/* DESKTOP NAV */}
