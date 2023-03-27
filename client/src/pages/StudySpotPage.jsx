@@ -41,9 +41,6 @@ const StudySpotPage = () => {
           style={{ width: "40%" }}
         />
         <Box sx={{ border: 1 }}>
-          <Box display="flex" justifyContent="center" padding="1rem">
-            <Map spotLocation={spot.location} width="60vh" height="40vh" />
-          </Box>
           <Box paddingLeft="1rem" paddingRight="1rem">
             <Typography fontWeight="bold">Details</Typography>
             <Typography>
