@@ -16,9 +16,8 @@ import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
-import FlexBetween from "./FlexBetween";
 import SubmitSpotForm from "./SubmitSpotForm";
-import { SubmitSpotFormModalStyle, Logo } from "./Styles";
+import { SubmitSpotFormModalStyle, Logo, FlexBetween } from "./Styles";
 
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);

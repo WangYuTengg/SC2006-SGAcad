@@ -12,6 +12,7 @@ import {
   Modal,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { styled } from "@mui/system";
 
 export const SubmitSpotFormModalStyle = {
   position: "absolute",
@@ -50,3 +51,15 @@ export const Logo = () => {
     </Typography>
   );
 };
+
+export const FlexBetween = styled(Box)({
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
+export const WidgetWrapper = styled(Box)(({ theme }) => ({
+  padding: "1.5rem 1.5rem 0.75rem 1.5rem",
+  backgroundColor: theme.palette.background.alt,
+  borderRadius: "0.75rem",
+}));
