@@ -111,7 +111,10 @@ const IndexPage = () => {
             </Typography>
             <ImageList>
               {spots.slice(0, 4).map((spot) => (
-                <Box sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}>
+                <Box
+                  sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}
+                  key={spot._id}
+                >
                   <Typography
                     fontWeight="bold"
                     fontSize="1.3rem"
