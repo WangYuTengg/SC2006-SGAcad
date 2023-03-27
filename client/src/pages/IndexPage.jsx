@@ -92,11 +92,12 @@ const IndexPage = () => {
               around!
             </Typography>
             <Map
-              spotLocation={
+              currentLocation={
                 currentLocation ? currentLocation : defaultSpot.location
               }
               width="80%"
               height="500px"
+              spots={spots}
             />
           </Box>
           <Divider></Divider>
