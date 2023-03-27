@@ -43,11 +43,9 @@ const SubmitSpotForm = () => {
   const handleSnackbarClose = () => setSnackBarOpen(false);
   const handleFormSubmit = async (values, onSubmitProps) => {
     try {
-      // submit form
-      // if successful, set snackbarOpen to true
       setSnackBarOpen(true);
     } catch (error) {
-      // handle error if form submission fails
+      console.error(error);
     }
   };
   const buttonStyle = {
