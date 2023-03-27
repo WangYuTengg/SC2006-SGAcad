@@ -32,7 +32,7 @@ const StudySpotPage = () => {
         gap="2rem"
         justifyContent="center"
       >
-        <Map spotLocation={spot.location} width="50vh" height="50vh" />
+        {spot.name}
       </Box>
     </Box>
   );
