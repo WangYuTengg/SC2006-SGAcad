@@ -27,18 +27,6 @@ export const authSlice = createSlice({
                 console.error("No favourite spots");
             }
         }
-        /** 
-        setStudySpots: (state, action) => {
-            state.studySpots = action.payload.studySpots;
-        },
-        setStudySpot: (state, action) => {
-            const updatedStudySpots = state.studySpots.map((spot) => {
-                if (spot._id === action.payload._id) return action.payload.spot;
-                return spot; 
-            });
-            state.studySpots = updatedStudySpots;
-        }
-        */
     }
 })
 
