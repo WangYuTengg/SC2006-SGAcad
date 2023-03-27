@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FavoritesListWidget from "../widgets/FavoritesListWidget.jsx";
 import { Avatar } from "@mui/material";
-import { FlexBetween } from "../components/Styles";
+import { FlexBetween } from "../components/Utils";
 
 const ProfilePage = () => {
   const theme = useTheme();

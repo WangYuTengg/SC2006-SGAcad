@@ -13,7 +13,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { Formik } from "formik";
 import * as yup from "yup";
 import Dropzone from "react-dropzone";
-import { FlexBetween } from "./Styles";
+import { FlexBetween } from "./Utils";
 
 const formSchema = yup.object().shape({
   name: yup.string().required("required"),

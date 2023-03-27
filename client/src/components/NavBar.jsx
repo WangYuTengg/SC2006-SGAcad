@@ -12,12 +12,17 @@ import {
   Button,
   Modal,
 } from "@mui/material";
-import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
+import { DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../state/index";
 import { useNavigate } from "react-router-dom";
 import SubmitSpotForm from "./SubmitSpotForm";
-import { SubmitSpotFormModalStyle, Logo, FlexBetween } from "./Styles";
+import {
+  SubmitSpotFormModalStyle,
+  Logo,
+  FlexBetween,
+  SearchBar,
+} from "./Utils";
 
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -92,19 +97,7 @@ const NavBar = () => {
     <FlexBetween padding="1rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
         <Logo />
-        {isNonMobileScreens && (
-          <FlexBetween
-            backgroundColor={neutralLight}
-            borderRadius="9px"
-            gap="3rem"
-            padding="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
-        )}
+        {isNonMobileScreens && <SearchBar />}
       </FlexBetween>
 
       {/* DESKTOP NAV */}

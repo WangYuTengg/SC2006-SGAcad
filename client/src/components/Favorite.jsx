@@ -6,7 +6,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFavoriteSpots } from "../state/index";
-import { FlexBetween } from "./Styles";
+import { FlexBetween } from "./Utils";
 //import UserImage from "./UserImage";
 
 const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
