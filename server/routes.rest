@@ -1,38 +1,29 @@
-// create study spots
-POST http://localhost:3001/studyspots/create
-Content-Type: application/json
-
-{
-    "spotId": 2,
-    "name": "The Coffee Bean & Tea Leaf - JCube",
-    "description": "Coffeehouse chain serving a variety of beverages including its signature ice-blended options. Open till 11pm.",
-    "picturePath": "",
-    "location": {
-        "address": "2 Jurong East Central 1, #01-22/23 JCube, Singapore",
-        "postal": 609731,
-        "type": "Point",
-        "coordinates" : [
-            1.3336889324502221, 103.74022156829723
-        ]
-    }
-}
-
 ###
-// create another study spot 
+// create study spot template
 POST http://localhost:3001/studyspots/create
 Content-Type: application/json
 
 {
-    "spotId": 3,
-    "name": "Lee Wee Nam Library",
-    "description": "NTU University library in Singapore. Fully air-conditioned and open till 9.30pm on weekdays. Available to students only",
-    "picturePath": "https://lh3.googleusercontent.com/p/AF1QipOZHSMHRtmM77vDb_4gJDEQ8uSTL4mS7vbMle0a=s680-w680-h510",
+    "spotId": 6,
+    "name": "Library@Esplanade",
+    "description": "Libraries are generally good places to study — as long as you can find a seat. Library@esplanade is one of the least crowded libraries, so you’ll easily be able to secure a spot. Located centrally in town, the library is in a fairly convenient location, but not near any schools and therefore not as often frequented by students. It’s got a conducive environment, great views, and plenty of seats, which makes it one of the best libraries to study in.",
+    "picturePath": "https://confirmgood.com/wp-content/uploads/2022/07/4_places-to-study.png",
+    "misc": {
+        "freeWifi": "Available",
+        "freeSeating": "Available",
+        "openingHours": {
+            "weekdays": "11am - 9pm",
+            "weekends": "11am - 9pm"
+        }, 
+        "phoneNumber": "Not available",
+        "websiteURL": "https://www.nlb.gov.sg/main/home"
+    },
     "location": {
-        "address": "50 Nanyang Avenue, Blk NS3-03-01",
-        "postal": 639798,
+        "address": "8 Raffles Ave., #03-01, Singapore",
+        "postal": "039802",
         "type": "Point",
         "coordinates" : [
-            1.3476778499782194, 103.68097197014353
+            1.290005906820569, 103.85574823207673
         ]
     }
 }
