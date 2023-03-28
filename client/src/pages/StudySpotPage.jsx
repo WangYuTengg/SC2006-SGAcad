@@ -1,4 +1,5 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
+import FavoriteButton from "../components/FavoriteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Map from "../components/Map";
@@ -24,9 +25,14 @@ const StudySpotPage = () => {
   if (!spot) return null;
   return (
     <Box>
-      <Typography fontWeight="bold" fontSize="1.5rem" padding="2rem">
-        {spot.name}
-      </Typography>
+      <Box display="flex">
+        <Typography fontWeight="bold" fontSize="1.5rem" padding="2rem">
+          {spot.name}
+        </Typography>
+        <Box padding="2rem">
+          <FavoriteButton favoriteId={spot._id} />
+        </Box>
+      </Box>
       <Box
         width="100%"
         padding="2rem 6%"

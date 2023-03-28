@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFavoriteSpots } from "../state/index";
 import { FlexBetween } from "./Utils";
+import FavoriteButton from "./FavoriteButton";
 //import UserImage from "./UserImage";
 
 const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
@@ -98,7 +99,7 @@ const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      <IconButton
+      {/* <IconButton
         onClick={() => patchFavorite()}
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
@@ -107,7 +108,8 @@ const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
         ) : (
           <AddLocationAltOutlined sx={{ color: primaryDark }} />
         )}
-      </IconButton>
+      </IconButton> */}
+      <FavoriteButton favoriteId={favoriteId} />
     </FlexBetween>
   );
 };
