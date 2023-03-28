@@ -19,8 +19,6 @@ const reviewSchema = new mongoose.Schema(
             required: true,
             max: 150
         },
-        picturePath: String,
-        likes: Number
     },
     { timestamps: true}
 );

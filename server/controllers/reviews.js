@@ -4,15 +4,13 @@ import User from "../models/User.js";
 /* CREATE */
 export const createReview = async (req, res) => {
     try {
-        const { userId, spotId, rating, comment, picturePath} = req.body;
+        const { userId, spotId, rating, comment} = req.body;
         //const user = await User.findById(userId);
         const newReview = new Review({
             userId,
             spotId,
             rating,
-            comment,
-            picturePath,
-            likes: 0
+            comment
         });
 
         await newReview.save();

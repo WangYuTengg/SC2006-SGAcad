@@ -4,7 +4,7 @@ const initialState = {
     mode: "light",
     user: null,
     token: null,
-    favoriteSpots: [],
+    //favoriteSpots: [],
 };
 
 export const authSlice = createSlice({

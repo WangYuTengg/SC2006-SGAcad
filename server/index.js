@@ -44,7 +44,7 @@ const upload = multer({ storage });
 /* ROUTES WITH FILES */
 // app.post("/auth/register", upload.single("picture"), register);
 app.post("/auth/register", register);
-app.post("/:spotId/review/create-review", verifyToken, upload.single("picture"), createReview)
+app.post("/:spotId/review/create-review", createReview)
 
 /* ROUTES */
 app.use("/auth", authRoutes);

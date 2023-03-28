@@ -10,7 +10,7 @@ const FavoritesListWidget = ({ userId }) => {
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
-  //console.log("widget", favoriteSpots);
+  console.log("widget", favoriteSpots);
 
   const getFavorites = async () => {
     const response = await fetch(
@@ -21,13 +21,14 @@ const FavoritesListWidget = ({ userId }) => {
       }
     );
     const data = await response.json();
-    //console.log(data);
+    //console.log("data", data);
     dispatch(setFavoriteSpots({ favoriteSpots: data }));
   };
 
   useEffect(() => {
+    console.log("run")
     getFavorites();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <WidgetWrapper>
@@ -40,13 +41,13 @@ const FavoritesListWidget = ({ userId }) => {
         Favorited Study Spots
       </Typography>
       <Box display="flex" flexDirection="column" gap="1.5rem">
-        {favoriteSpots.map((favorite) => (
+        {favoriteSpots.map((favoriteSpots) => (
           <Favorite
-            key={favorite._id}
-            favoriteId={favorite._id}
-            name={`${favorite.name}`}
-            subtitle={favorite.location.address}
-            picturePath={favorite.picturePath}
+            key={favoriteSpots._id}
+            favoriteId={favoriteSpots._id}
+            name={favoriteSpots.name}
+            subtitle={favoriteSpots.location.address}
+            picturePath={favoriteSpots.picturePath}
           />
         ))}
       </Box>
