@@ -46,8 +46,11 @@ const StudySpotPage = () => {
             <Typography>
               Address: {spot.location.address}, {spot.location.postal}
             </Typography>
-            <Typography>Opening Hours:</Typography>
-            <Typography>Phone:</Typography>
+            <Typography>Opening Hours: </Typography>
+            <li>Weekdays: {spot.misc.openingHours.weekdays}</li>
+            <li>Weekends: {spot.misc.openingHours.weekends}</li>
+            <Typography>Phone: {spot.misc.phoneNumber}</Typography>
+            <Typography>Website: {spot.misc.websiteURL}</Typography>
           </Box>
         </Box>
       </Box>
