@@ -16,11 +16,41 @@ const StudySpotSchema = new mongoose.Schema(
         description: {
             type: String,
             required: true,
-            max: 150
+            max: 500
         },
         picturePath: {
             type: String,
             default: ""
+        },
+        misc: {
+            freeWifi:{
+                type: String,
+                default: "Not available",
+            },
+            freeSeating: {
+                type: String,
+                default: "Available",
+            },
+            openingHours: {
+                weekdays: {
+                    type: String,
+                    default: "8am - 9pm",
+                },
+                weekends: {
+                    type: String,
+                    default: "10am - 8pm",
+                }
+            },
+
+            phoneNumber:{
+                type: String,
+                default: "Not available"
+            },
+
+            websiteURL: {
+                type: String,
+                default: "null",
+            }
         },
         location: {
             address: {
@@ -28,7 +58,7 @@ const StudySpotSchema = new mongoose.Schema(
                 required: true,
             },
             postal: {
-                type: Number,
+                type: String,
                 minlength: 6,
                 maxlength: 6,
                 required: true,

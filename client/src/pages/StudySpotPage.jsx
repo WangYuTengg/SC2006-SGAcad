@@ -24,7 +24,9 @@ const StudySpotPage = () => {
   if (!spot) return null;
   return (
     <Box>
-      <Typography fontWeight="bold" fontSize="1.5rem" padding="2rem">{spot.name}</Typography>
+      <Typography fontWeight="bold" fontSize="1.5rem" padding="2rem">
+        {spot.name}
+      </Typography>
       <Box
         width="100%"
         padding="2rem 6%"
@@ -36,27 +38,16 @@ const StudySpotPage = () => {
           src={`${spot.picturePath}`}
           alt={spot.name}
           loading="lazy"
-          style={{width:"40%"}}
+          style={{ width: "40%" }}
         />
-        <Box sx={{border: 1}}>
-          <Box
-            display="flex" 
-            justifyContent="center"
-            padding="1rem"
-          >
-            <Map spotLocation={spot.location} width="60vh" height="40vh" />
-          </Box>
+        <Box sx={{ border: 1 }}>
           <Box paddingLeft="1rem" paddingRight="1rem">
             <Typography fontWeight="bold">Details</Typography>
-            <Typography> 
+            <Typography>
               Address: {spot.location.address}, {spot.location.postal}
             </Typography>
-            <Typography> 
-              Opening Hours: 
-            </Typography>
-            <Typography> 
-              Phone:
-            </Typography>
+            <Typography>Opening Hours:</Typography>
+            <Typography>Phone:</Typography>
           </Box>
         </Box>
       </Box>

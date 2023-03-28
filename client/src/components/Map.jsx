@@ -1,12 +1,37 @@
-import React from "react";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import React, { useState } from "react";
+import {
+  GoogleMap,
+  useJsApiLoader,
+  Marker,
+  InfoWindow,
+} from "@react-google-maps/api";
+import { Paper, Tooltip, Typography } from "@mui/material";
 
-// const center = {
-//   lat: -3.745,
-//   lng: -38.523
-// };
+const Map = ({ currentLocation, width, height, spots }) => {
+  const studySpots = spots;
+  const [popupContent, setPopupContent] = useState(null);
+  const [selectedMarker, setSelectedMarker] = useState(null);
 
-const Map = ({ spotLocation, width, height }) => {
+  const handleNavigate = (spot) => {
+    window.location.href = `/studyspots/${spot._id}`;
+  };
+
+  const handleMarkerClick = (spot) => {
+    setSelectedMarker(spot);
+  };
+
+  const onInfoWindowClose = () => {
+    setSelectedMarker(null);
+  };
+
+  const handleMarkerMouseOver = (spot) => {
+    setPopupContent(spot.name);
+  };
+
+  const handleMarkerMouseOut = () => {
+    setPopupContent(null);
+  };
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBkfUr4OIICxpi59JLmjMoDCe7zAmWR15k",
@@ -18,35 +43,81 @@ const Map = ({ spotLocation, width, height }) => {
   };
 
   const center = {
-    lat: spotLocation.coordinates[0],
-    lng: spotLocation.coordinates[1],
+    lat: currentLocation.coordinates[0],
+    lng: currentLocation.coordinates[1],
   };
 
-  const [map, setMap] = React.useState(null);
-
   const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map);
+    // do nothing
   }, []);
 
   const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
+    // do nothing
   }, []);
 
   return isLoaded ? (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={center}
-      zoom={10}
-      onLoad={onLoad}
-      onUnmount={onUnmount}
-    >
-      {/* Child components, such as markers, info windows, etc. */}
-      <></>
-    </GoogleMap>
+    <>
+      {popupContent && (
+        <Tooltip title={popupContent}>
+          <Paper sx={{ position: "absolute", zIndex: 1 }}>
+            <Typography sx={{ p: 2 }}>{popupContent}</Typography>
+          </Paper>
+        </Tooltip>
+      )}
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={12}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+        disableDefaultUI={true}
+        clickableIcons={false}
+      >
+        <Marker
+          position={center}
+          id="currentLocMarker"
+          icon={{
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 7,
+          }}
+          onMouseOver={() =>
+            handleMarkerMouseOver({ name: "Current Location" })
+          }
+          onMouseOut={handleMarkerMouseOut}
+        />
+        {studySpots.map((spot) => {
+          const coordObj = {
+            lat: spot.location.coordinates[0],
+            lng: spot.location.coordinates[1],
+          };
+          return (
+            <Marker
+              position={coordObj}
+              id={spot.spotId}
+              key={spot.spotId}
+              onClick={() => handleMarkerClick(spot)}
+            >
+              {selectedMarker !== null && selectedMarker === spot && (
+                <InfoWindow
+                  position={coordObj}
+                  onCloseClick={onInfoWindowClose}
+                >
+                  {selectedMarker === spot && (
+                    <Typography
+                      onClick={() => handleNavigate(spot)}
+                      color="black"
+                      sx={{ cursor: "pointer", textDecoration: "underline" }}
+                    >
+                      {spot.name}
+                    </Typography>
+                  )}
+                </InfoWindow>
+              )}
+            </Marker>
+          );
+        })}
+      </GoogleMap>
+    </>
   ) : (
     <></>
   );

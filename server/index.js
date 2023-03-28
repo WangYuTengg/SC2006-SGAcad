@@ -12,7 +12,6 @@ import authRoutes from "./routes/auth.js";
 import userRoutes from "./routes/users.js";
 import studySpotRoutes from "./routes/studyspots.js";
 import { register } from "./controllers/auth.js";
-import { createStudySpot } from "./controllers/studyspots.js";
 import { verifyToken } from "./middleware/auth.js";
 import { createReview } from "./controllers/reviews.js";
 
