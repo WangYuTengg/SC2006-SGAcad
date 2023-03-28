@@ -37,7 +37,7 @@ fetch("https://eservice.nlb.gov.sg/rss/libraries")
 
       // Print the extracted data
       console.log(title);
-      console.log(description);
+      // console.log(description);
       console.log(libraryImage);
       console.log(address);
       console.log(georssPoint);

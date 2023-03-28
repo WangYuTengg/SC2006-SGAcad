@@ -22,6 +22,10 @@ const StudySpotSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        isLibrary: {
+            type: Boolean,
+            default: false,
+        },
         misc: {
             freeWifi:{
                 type: String,
