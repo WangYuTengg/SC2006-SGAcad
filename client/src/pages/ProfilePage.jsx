@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import FavoritesListWidget from "../widgets/FavoritesListWidget.jsx";
+import FavoritesListWidget from "../components/FavoritesList.jsx";
 import { Avatar } from "@mui/material";
 import { FlexBetween } from "../components/Utils";
 

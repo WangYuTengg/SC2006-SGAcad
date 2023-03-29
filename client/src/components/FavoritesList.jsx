@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import Favorite from "../components/Favorite.jsx";
-import { WidgetWrapper } from "../components/Utils";
+import Favorite from "./Favorite.jsx";
+import { WidgetWrapper } from "./Utils";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavoriteSpots } from "../state/index";
