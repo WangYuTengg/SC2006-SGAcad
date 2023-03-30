@@ -9,7 +9,7 @@ import {
   useMediaQuery,
   Rating,
 } from "@mui/material";
-import WidgetWrapper from "../components/WidgetWrapper";
+import WidgetWrapper from "./WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -31,7 +31,7 @@ const SubmitReviewForm = ({spotId}) => {
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
-  console.log(_id);
+  //console.log(_id);
   const handleReview = async () => {
     const values = {
       userId: "",

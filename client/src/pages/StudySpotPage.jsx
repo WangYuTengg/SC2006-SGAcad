@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Map from "../components/Map";
 import SubmitReviewForm from "../components/SubmitReviewForm";
+import Reviews from "../components/Reviews";
+import { useSelector } from "react-redux";
 
 const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
-  console.log(spotId);
+  // console.log(spotId);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getSpot = async () => {
@@ -63,8 +65,8 @@ const StudySpotPage = () => {
       </Box>
       <Box display="flex">
         <SubmitReviewForm spotId={spot._id}/>
-        <Box>
-          
+        <Box display="flex">
+          <Reviews spotId={spotId} />
         </Box>
       </Box>
       
