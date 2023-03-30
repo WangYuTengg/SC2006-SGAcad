@@ -111,3 +111,14 @@ GET http://localhost:3001/users/641e817758326ac9e3d0b462/favorite-spots
 
 // get user reviews
 GET http://localhost:3001/users/641e817758326ac9e3d0b462/reviews
+
+### 
+
+POST http://localhost:3001/studyspots/641ec693fa85327b95899bb6/reviews
+Content-Type: application/json
+
+{
+    "userId": "641e817758326ac9e3d0b462",
+    "rating": 5,
+    "comment": "daaaa"
+}

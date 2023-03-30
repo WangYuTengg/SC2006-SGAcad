@@ -1,8 +1,9 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Typography, useMediaQuery, Button } from "@mui/material";
 import FavoriteButton from "../components/FavoriteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Map from "../components/Map";
+import SubmitReviewForm from "../components/SubmitReviewForm";
 
 const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
@@ -60,6 +61,13 @@ const StudySpotPage = () => {
           </Box>
         </Box>
       </Box>
+      <Box display="flex">
+        <SubmitReviewForm spotId={spot._id}/>
+        <Box>
+          
+        </Box>
+      </Box>
+      
     </Box>
   );
 };

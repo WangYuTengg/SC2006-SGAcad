@@ -10,18 +10,18 @@ import { FlexBetween } from "./Utils";
 
 const FavoriteButton = ({favoriteId}) => {
   const dispatch = useDispatch();
-  const { _id } = useSelector((state) => state.user);
+  const { _id } = useSelector((state) => state.user) || "";
   const token = useSelector((state) => state.token);
-  const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
+  const favoriteSpots = (_id) ? useSelector((state) => state.user.favoriteSpots) : {};
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
   //console.log("fav", favoriteSpots);
 
-  const isFavorite = favoriteSpots.find(
+  const isFavorite = (_id) ? favoriteSpots.find(
     (favorite) => favorite._id === favoriteId
-  );
+  ) : false;
 
   const patchFavorite = async () => {
     const response = await fetch(

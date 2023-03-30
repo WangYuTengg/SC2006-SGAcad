@@ -5,6 +5,7 @@ import {
     getStudySpotById
 } from "../controllers/studyspots.js";
 import {
+    createReview,
     getSpotReviews
 } from "../controllers/reviews.js";
 import { addRemoveFavorites } from "../controllers/users.js";
@@ -13,6 +14,7 @@ const router = express.Router();
 
 /* CREATE */
 router.post("/create", createStudySpot);
+router.post("/:spotId/reviews", createReview);
 
 /* READ */
 router.get("/", getAllStudySpots);
