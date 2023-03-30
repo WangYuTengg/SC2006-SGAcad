@@ -12,7 +12,12 @@ const FavoriteButton = ({favoriteId}) => {
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.user) || "";
   const token = useSelector((state) => state.token);
-  const favoriteSpots = (_id) ? useSelector((state) => state.user.favoriteSpots) : {};
+  // const favoriteSpots = (_id) ? useSelector((state) => state.user.favoriteSpots) : {};
+  const favoriteSpots = useSelector((state) => {
+    if(_id)
+      return state.user.favoriteSpots;
+    return null;
+  })
 
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
