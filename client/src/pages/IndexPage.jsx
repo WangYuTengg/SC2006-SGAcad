@@ -144,6 +144,10 @@ const IndexPage = () => {
                   fontWeight="bold"
                   fontSize="1.3rem"
                   sx={{
+                    maxWidth: "100%",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
                     "&:hover": {
                       color: primaryLight,
                       cursor: "pointer",
