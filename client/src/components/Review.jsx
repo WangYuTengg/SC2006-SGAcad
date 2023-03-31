@@ -2,13 +2,7 @@ import { Rating, useTheme, Typography, Box } from "@mui/material";
 import WidgetWrapper from "./WidgetWrapper";
 import { useEffect, useState } from "react";
 
-const Review = ({
-  reviewId,
-  userId,
-  spotId,
-  rating,
-  comment
-}) => {
+const Review = ({ reviewId, userId, spotId, rating, comment }) => {
   const [user, setUser] = useState(null);
 
   const getUser = async () => {
@@ -16,20 +10,20 @@ const Review = ({
       method: "GET",
     });
     const data = await response.json();
-    console.log("userdata",data);
+    console.log("userdata", data);
     setUser(data);
   };
-  
+
   const { palette } = useTheme();
   const main = palette.neutral.main;
 
   useEffect(() => {
     getUser();
-  }, []); 
+  }, []);
 
-  if(!user) return null;
+  if (!user) return null;
   return (
-    <Box padding="0.5rem" key={{userId, reviewId, spotId}}>
+    <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
       <WidgetWrapper m="2rem 0">
         <Typography color={main} sx={{ mt: "1rem" }}>
           {user.firstName} {user.lastName}
@@ -40,7 +34,7 @@ const Review = ({
         </Typography>
       </WidgetWrapper>
     </Box>
-  )
-}
+  );
+};
 
 export default Review;

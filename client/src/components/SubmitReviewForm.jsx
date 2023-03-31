@@ -20,7 +20,7 @@ const isLoggedIn = () => {
   else return false;
 };
 
-const SubmitReviewForm = ({ spotId }) => {
+const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
   const { palette } = useTheme();
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
@@ -37,7 +37,8 @@ const SubmitReviewForm = ({ spotId }) => {
     setSnackbar({ open: true, message, severity });
   };
 
-  const handleReview = async () => {
+  const handleReview = async (e) => {
+    e.preventDefault();
     const values = {
       userId: "",
       rating: 0,
@@ -54,8 +55,15 @@ const SubmitReviewForm = ({ spotId }) => {
         body: JSON.stringify(values),
       }
     );
+
     if (response) {
+      const data = await response.json(); // Get the newly created review data
+      onReviewSubmitted(data); // Call the callback function with the new review data
       handleOpenSnackbar("Review Posted!", "success");
+
+      // Reset the review body and rating
+      setReview("");
+      setRating(0);
     } else {
       handleOpenSnackbar("Oops, something went wrong!", "error");
     }

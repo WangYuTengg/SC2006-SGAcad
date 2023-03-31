@@ -16,6 +16,7 @@ const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
   const [loading, setLoading] = useState(true);
+  const [newReviews, setNewReviews] = useState([]);
   const getSpot = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}`, {
       method: "GET",
@@ -115,10 +116,15 @@ const StudySpotPage = () => {
           Review Section{" "}
         </Typography>
         <Box my={2}>
-          <SubmitReviewForm spotId={spot._id} />
+          <SubmitReviewForm
+            spotId={spot._id}
+            onReviewSubmitted={(newReview) =>
+              setNewReviews([...newReviews, newReview])
+            }
+          />
         </Box>
         <Box>
-          <Reviews spotId={spotId} />
+          <Reviews spotId={spotId} newReviews={newReviews} />
         </Box>
       </Box>
     </Container>

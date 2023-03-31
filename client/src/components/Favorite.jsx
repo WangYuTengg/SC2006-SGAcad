@@ -1,14 +1,9 @@
-import {
-  AddLocationAltOutlined,
-  WrongLocationOutlined,
-} from "@mui/icons-material";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setFavoriteSpots } from "../state/index";
 import { FlexBetween } from "./Utils";
 import FavoriteButton from "./FavoriteButton";
-//import UserImage from "./UserImage";
 
 const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
   const dispatch = useDispatch();
@@ -22,7 +17,6 @@ const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
   const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
-  //console.log("fav", favoriteSpots);
 
   const isFavorite = favoriteSpots.find(
     (favorite) => favorite._id === favoriteId
@@ -99,16 +93,6 @@ const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
           </Typography>
         </Box>
       </FlexBetween>
-      {/* <IconButton
-        onClick={() => patchFavorite()}
-        sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
-      >
-        {isFavorite ? (
-          <WrongLocationOutlined sx={{ color: primaryDark }} />
-        ) : (
-          <AddLocationAltOutlined sx={{ color: primaryDark }} />
-        )}
-      </IconButton> */}
       <FavoriteButton favoriteId={favoriteId} />
     </FlexBetween>
   );

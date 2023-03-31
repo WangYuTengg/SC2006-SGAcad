@@ -10,8 +10,7 @@ const FavoritesListWidget = ({ userId }) => {
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
-  //console.log("widget", favoriteSpots);
-  
+
   const getFavorites = async () => {
     const response = await fetch(
       `http://localhost:3001/users/${userId}/favorite-spots`,
@@ -21,24 +20,21 @@ const FavoritesListWidget = ({ userId }) => {
       }
     );
     const data = await response.json();
-    //console.log("data", data);
     dispatch(setFavoriteSpots({ favoriteSpots: data }));
   };
 
   useEffect(() => {
-    getFavorites()
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
+    getFavorites();
+  }, []);
 
   const favoritesComponent = favoriteSpots.map((favoriteSpots) => (
     <Favorite
       key={favoriteSpots._id}
       favoriteId={favoriteSpots._id}
       name={favoriteSpots.name}
-      //subtitle={favoriteSpots.location.address}
       picturePath={favoriteSpots.picturePath}
     />
-  ))
+  ));
 
   return (
     <WidgetWrapper>
