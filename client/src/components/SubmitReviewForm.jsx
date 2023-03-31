@@ -6,6 +6,8 @@ import {
   Button,
   Rating,
   Grid,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import WidgetWrapper from "./WidgetWrapper";
 import { useState } from "react";
@@ -23,6 +25,17 @@ const SubmitReviewForm = ({ spotId }) => {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(0);
   const { _id } = useSelector((state) => state.user) || "";
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+  const handleOpenSnackbar = (message, severity) => {
+    setSnackbar({ open: true, message, severity });
+  };
 
   const handleReview = async () => {
     const values = {
@@ -41,6 +54,11 @@ const SubmitReviewForm = ({ spotId }) => {
         body: JSON.stringify(values),
       }
     );
+    if (response) {
+      handleOpenSnackbar("Review Posted!", "success");
+    } else {
+      handleOpenSnackbar("Oops, something went wrong!", "error");
+    }
   };
 
   if (!_id)
@@ -93,8 +111,24 @@ const SubmitReviewForm = ({ spotId }) => {
                   borderRadius: "12px",
                 }}
               >
-                POST 
+                POST
               </Button>
+              <Snackbar
+                open={snackbar.open}
+                autoHideDuration={4000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                onClose={handleCloseSnackbar}
+              >
+                <Alert
+                  sx={{ width: "100%", fontSize: "1rem" }}
+                  elevation={6}
+                  variant="filled"
+                  onClose={handleCloseSnackbar}
+                  severity={snackbar.severity}
+                >
+                  {snackbar.message}
+                </Alert>
+              </Snackbar>
             </Box>
           </Grid>
         </Grid>
