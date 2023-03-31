@@ -5,6 +5,7 @@ import {
   useTheme,
   Divider,
   Grid,
+  CircularProgress,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import Map from "../components/Map";
@@ -15,6 +16,7 @@ const IndexPage = () => {
   const [spots, setSpots] = useState(null);
   const [defaultSpot, setDefaultSpot] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
+  const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.user);
   const defaultSpotId = "641ec083982851ff40de0aa3";
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -64,16 +66,47 @@ const IndexPage = () => {
   }, [user]);
 
   useEffect(() => {
-    getDefaultSpot();
-    getSpots();
+    const fetchData = async () => {
+      await getDefaultSpot();
+      await getSpots();
+      setLoading(false);
+    };
+
+    fetchData();
   }, []);
 
-  if (!defaultSpot) return null;
-  if (!spots) return null;
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <>
+      {loading && (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
+          <CircularProgress />
+        </Box>
+      )}
       <Box padding="1rem">
-        <Typography fontWeight="500" fontSize="2rem" color="primary" textAlign="center">
+        <Typography
+          fontWeight="500"
+          fontSize="2rem"
+          color="primary"
+          textAlign="center"
+        >
           Welcome to SG Acad!
         </Typography>
         <Typography paddingBottom="1rem" fontSize="1.1rem" textAlign="center">
@@ -91,7 +124,12 @@ const IndexPage = () => {
       </Box>
       <Divider />
       <Box padding="1rem">
-        <Typography fontWeight="500" fontSize="2rem" color="primary" textAlign="center">
+        <Typography
+          fontWeight="500"
+          fontSize="2rem"
+          color="primary"
+          textAlign="center"
+        >
           Recommended Spots
         </Typography>
         <Grid container spacing={2}>
@@ -114,7 +152,13 @@ const IndexPage = () => {
                 >
                   {spot.name}
                 </Typography>
-                <Box component="img" src={`${spot.picturePath}`} alt={spot.name} loading="lazy" sx={{ width: "100%", borderRadius: "0.5rem" }} />
+                <Box
+                  component="img"
+                  src={`${spot.picturePath}`}
+                  alt={spot.name}
+                  loading="lazy"
+                  sx={{ width: "100%", borderRadius: "0.5rem" }}
+                />
                 <Typography
                   sx={{
                     mt: 1,
@@ -135,6 +179,5 @@ const IndexPage = () => {
     </>
   );
 };
-
 
 export default IndexPage;
