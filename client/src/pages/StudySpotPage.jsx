@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery, Button, Container, Grid, Paper } from "@mui/material";
+import { Box, Typography, Container, Grid, Paper } from "@mui/material";
 import FavoriteButton from "../components/FavoriteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -8,7 +8,6 @@ import Reviews from "../components/Reviews";
 const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
-
   const getSpot = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}`, {
       method: "GET",
@@ -27,7 +26,7 @@ const StudySpotPage = () => {
       <Box my={4}>
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
-            <Typography fontWeight="bold" fontSize="1.6rem">
+            <Typography fontWeight="bold" fontSize="1.6rem" color="primary">
               {spot.name}
             </Typography>
           </Grid>
@@ -60,7 +59,8 @@ const StudySpotPage = () => {
             </Paper>
           </Grid>
         </Grid>
-        <Box my={4}>
+        <Typography fontWeight="bold" fontSize="1.6rem" sx={{pt: 2}} color="primary"> Review Section </Typography>
+        <Box my={2}>
           <SubmitReviewForm spotId={spot._id} />
         </Box>
         <Box>
