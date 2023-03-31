@@ -1,27 +1,12 @@
-import {
-  ManageAccountsOutlined,
-  EditOutlined,
-  LocationOnOutlined,
-  WorkOutlineOutlined,
-} from "@mui/icons-material";
-import { Box, Typography, Divider, useTheme } from "@mui/material";
-// import UserImage from "components/UserImage";
-// import FlexBetween from "./FlexBetween";
-import WidgetWrapper from "./WidgetWrapper";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Review from "./Review";
 
 const Reviews = ({ spotId }) => {
-  //const dispatch = useDispatch();
-  const token = useSelector((state) => state.token);
-  const [reviews, setReviews] = useState([{}]);
+  const [reviews, setReviews] = useState([]);
   
   const getReviews = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}/reviews`, {
       method: "GET",
-      //headers:
     })
     const data = await response.json();
     console.log("reviews", data);
@@ -39,8 +24,7 @@ const Reviews = ({ spotId }) => {
 
   useEffect(() => {
     getReviews();
-    //console.log("reviews", reviews)
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); 
 
   return (
     <>
