@@ -1,11 +1,10 @@
-import { Divider, Typography, useTheme } from "@mui/material";
+import { Divider, Typography, useTheme, Grid } from "@mui/material";
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FavoritesListWidget from "../components/FavoritesList.jsx";
 import { Avatar } from "@mui/material";
-import { FlexBetween } from "../components/Utils";
 
 const ProfilePage = () => {
   const theme = useTheme();
@@ -39,44 +38,45 @@ const ProfilePage = () => {
     picturePath,
   } = user;
 
-  const containerStyle = {
-    display: "flex",
-  };
-
-  const profileBox = {
-    width: "20%",
-    height: "20%",
-  };
-
-  const favouriteBox = {
-    width: "50%",
-  };
-
   return (
-    <div className="container" style={containerStyle}>
-      <div className="profile" style={profileBox}>
-        <Box
-          p="1rem 1rem 1rem 1rem"
-          m="1rem 0 0 1rem"
-          sx={{ border: 2, borderRadius: "10px", color: "secondary.main" }}
-        >
-          <FlexBetween pl="40%" pb="0.5rem">
+    <Box pt={3} px={isNonMobileScreens ? 8 : 2}>
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={4}>
+          <Box
+            p={2}
+            sx={{
+              border: 2,
+              borderRadius: "10px",
+              color: "secondary.main",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <Avatar sx={{ width: 56, height: 56 }} src={picturePath}></Avatar>
-          </FlexBetween>
-          <Divider />
-          <Typography sx={{ pt: "0.5rem", textAlign: "center" }}>
-            Name: {firstName} {lastName}{" "}
-          </Typography>
-          <Typography sx={{ textAlign: "center" }}>Email: {email} </Typography>
-          <Typography sx={{ textAlign: "center" }}>Location: </Typography>
-        </Box>
-      </div>
-      <div className="favourites" style={favouriteBox}>
-        <Box p="1rem 1rem 1rem 1rem" m="1rem 0 0 1rem">
-          <FavoritesListWidget userId={userId} />
-        </Box>
-      </div>
-    </div>
+            <Divider />
+            <Typography fontSize="1rem" sx={{ pt: "0.5rem", textAlign: "center" }}>
+              Name: {firstName} {lastName}
+            </Typography>
+            <Typography fontSize="1rem" sx={{ textAlign: "center" }}>Email: {email}</Typography>
+            <Typography fontSize="1rem" sx={{ textAlign: "center" }}>Location: {location || "Not provided"}</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Box>
+            <Typography variant="h5" fontWeight="bold" fontSize="1.6rem" mb={2}>
+              Favorite Spots
+            </Typography>
+            <FavoritesListWidget userId={userId} />
+          </Box>
+          <Box mt={4}>
+            <Typography variant="h5" fontWeight="bold" fontSize="1.6rem" mb={2}>
+              Reviews Given
+            </Typography>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
