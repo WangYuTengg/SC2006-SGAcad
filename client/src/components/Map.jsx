@@ -96,26 +96,27 @@ const Map = ({ currentLocation, width, height, spots }) => {
               id={spot.spotId}
               key={spot.spotId}
               onClick={() => handleMarkerClick(spot)}
-            >
-              {selectedMarker !== null && selectedMarker === spot && (
-                <InfoWindow
-                  position={coordObj}
-                  onCloseClick={onInfoWindowClose}
-                >
-                  {selectedMarker === spot && (
-                    <Typography
-                      onClick={() => handleNavigate(spot)}
-                      color="black"
-                      sx={{ cursor: "pointer", textDecoration: "underline" }}
-                    >
-                      {spot.name}
-                    </Typography>
-                  )}
-                </InfoWindow>
-              )}
-            </Marker>
+            />
           );
         })}
+
+        {selectedMarker && (
+          <InfoWindow
+            position={{
+              lat: selectedMarker.location.coordinates[0],
+              lng: selectedMarker.location.coordinates[1],
+            }}
+            onCloseClick={onInfoWindowClose}
+          >
+            <Typography
+              onClick={() => handleNavigate(selectedMarker)}
+              color="black"
+              sx={{ cursor: "pointer", textDecoration: "underline" }}
+            >
+              {selectedMarker.name}
+            </Typography>
+          </InfoWindow>
+        )}
       </GoogleMap>
     </>
   ) : (
