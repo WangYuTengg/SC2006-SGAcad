@@ -1,18 +1,13 @@
-import {
-  AddLocationAltOutlined,
-  WrongLocationOutlined,
-} from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setFavoriteSpots } from "../state/index";
-import { FlexBetween } from "./Utils";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const FavoriteButton = ({favoriteId}) => {
   const dispatch = useDispatch();
   const { _id } = useSelector((state) => state.user) || "";
   const token = useSelector((state) => state.token);
-  // const favoriteSpots = (_id) ? useSelector((state) => state.user.favoriteSpots) : {};
   const favoriteSpots = useSelector((state) => {
     if(_id)
       return state.user.favoriteSpots;
@@ -22,7 +17,6 @@ const FavoriteButton = ({favoriteId}) => {
   const { palette } = useTheme();
   const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
-  //console.log("fav", favoriteSpots);
 
   const isFavorite = (_id) ? favoriteSpots.find(
     (favorite) => favorite._id === favoriteId
@@ -49,9 +43,9 @@ const FavoriteButton = ({favoriteId}) => {
         sx={{ backgroundColor: primaryLight, p: "0.6rem" }}
       >
         {isFavorite ? (
-          <WrongLocationOutlined sx={{ color: primaryDark }} />
+          <FavoriteIcon sx={{ color: primaryDark }} />
         ) : (
-          <AddLocationAltOutlined sx={{ color: primaryDark }} />
+          <FavoriteBorderIcon sx={{ color: primaryDark }} />
         )}
       </IconButton>
   )
