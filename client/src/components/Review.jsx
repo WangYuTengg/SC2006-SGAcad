@@ -1,6 +1,5 @@
 import { Rating, useTheme, Typography, Box } from "@mui/material";
 import WidgetWrapper from "./WidgetWrapper";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 const Review = ({
