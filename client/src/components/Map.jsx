@@ -11,6 +11,26 @@ const Map = ({ currentLocation, width, height, spots }) => {
   const studySpots = spots;
   const [popupContent, setPopupContent] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
+  const getMarkerIcon = (isLibrary) => {
+    const color = isLibrary ? "green" : "red";
+    return {
+      url: `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`,
+    };
+  };
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: "AIzaSyBkfUr4OIICxpi59JLmjMoDCe7zAmWR15k",
+  });
+
+  const containerStyle = {
+    width: width,
+    height: height,
+  };
+
+  const center = {
+    lat: currentLocation.coordinates[0],
+    lng: currentLocation.coordinates[1],
+  };
 
   const handleNavigate = (spot) => {
     window.location.href = `/studyspots/${spot._id}`;
@@ -30,21 +50,6 @@ const Map = ({ currentLocation, width, height, spots }) => {
 
   const handleMarkerMouseOut = () => {
     setPopupContent(null);
-  };
-
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyBkfUr4OIICxpi59JLmjMoDCe7zAmWR15k",
-  });
-
-  const containerStyle = {
-    width: width,
-    height: height,
-  };
-
-  const center = {
-    lat: currentLocation.coordinates[0],
-    lng: currentLocation.coordinates[1],
   };
 
   const onLoad = React.useCallback(function callback(map) {
@@ -95,6 +100,7 @@ const Map = ({ currentLocation, width, height, spots }) => {
               position={coordObj}
               id={spot.spotId}
               key={spot.spotId}
+              icon={getMarkerIcon(spot.isLibrary)}
               onClick={() => handleMarkerClick(spot)}
             />
           );
