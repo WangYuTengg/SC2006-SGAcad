@@ -4,12 +4,10 @@ import {
   useMediaQuery,
   useTheme,
   Divider,
+  Grid,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import Map from "../components/Map";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -74,95 +72,69 @@ const IndexPage = () => {
   if (!spots) return null;
   return (
     <>
-      {isNonMobileScreens && (
-        <Box>
-          <Box
-            padding="2rem 1rem"
-            display="flex"
-            flexDirection="column"
-            justifyContent="center"
-            alignItems="center"
-            textAlign="center"
-          >
-            <Typography fontWeight="500" fontSize="2rem" color="primary">
-              Welcome to SG Acad!
-            </Typography>
-            <Typography paddingBottom="8px" fontSize="1.1rem">
-              Find your perfect study spot here at our website :). Take a look
-              around!
-            </Typography>
-            <Map
-              currentLocation={
-                currentLocation ? currentLocation : defaultSpot.location
-              }
-              width="80%"
-              height="500px"
-              spots={spots}
-            />
-          </Box>
-          <Divider></Divider>
-          <Box
-            padding="2rem 10%"
-            width="100%"
-            display="flex"
-            flexDirection="column"
-          >
-            <Typography fontWeight="500" fontSize="2rem" color="primary">
-              Recommended Spots
-            </Typography>
-            <ImageList>
-              {spots.slice(0, 4).map((spot) => (
-                <Box
-                  sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}
-                  key={spot._id}
+      <Box padding="1rem">
+        <Typography fontWeight="500" fontSize="2rem" color="primary" textAlign="center">
+          Welcome to SG Acad!
+        </Typography>
+        <Typography paddingBottom="1rem" fontSize="1.1rem" textAlign="center">
+          Find your perfect study spot here at our website :). Take a look
+          around!
+        </Typography>
+        <Map
+          currentLocation={
+            currentLocation ? currentLocation : defaultSpot.location
+          }
+          width="100%"
+          height={isNonMobileScreens ? "500px" : "300px"}
+          spots={spots}
+        />
+      </Box>
+      <Divider />
+      <Box padding="1rem">
+        <Typography fontWeight="500" fontSize="2rem" color="primary" textAlign="center">
+          Recommended Spots
+        </Typography>
+        <Grid container spacing={2}>
+          {spots.slice(0, 4).map((spot) => (
+            <Grid item xs={12} sm={6} md={3} key={spot._id}>
+              <Box
+                sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}
+                onClick={() => navigate(`/studyspots/${spot._id}`)}
+                textAlign="center"
+              >
+                <Typography
+                  fontWeight="bold"
+                  fontSize="1.3rem"
+                  sx={{
+                    "&:hover": {
+                      color: primaryLight,
+                      cursor: "pointer",
+                    },
+                  }}
                 >
-                  <Typography
-                    fontWeight="bold"
-                    fontSize="1.3rem"
-                    onClick={() => navigate(`/studyspots/${spot._id}`)}
-                    sx={{
-                      "&:hover": {
-                        color: primaryLight,
-                        cursor: "pointer",
-                      },
-                    }}
-                  >
-                    {spot.name}
-                  </Typography>
-                  <ImageListItem>
-                    <img
-                      src={`${spot.picturePath}`}
-                      alt={spot.name}
-                      loading="lazy"
-                    />
-                    <ImageListItemBar
-                      title={
-                        spot.location.address + ",  " + spot.location.postal
-                      }
-                      position="below"
-                    />
-                  </ImageListItem>
-                  <Typography
-                    onClick={() => navigate(`/studyspots/${spot._id}`)}
-                    sx={{
-                      mt: -1,
-                      "&:hover": {
-                        color: primaryLight,
-                        cursor: "pointer",
-                      },
-                      textDecoration: "underline",
-                    }}
-                  >
-                    View More
-                  </Typography>
-                </Box>
-              ))}
-            </ImageList>
-          </Box>
-        </Box>
-      )}
+                  {spot.name}
+                </Typography>
+                <Box component="img" src={`${spot.picturePath}`} alt={spot.name} loading="lazy" sx={{ width: "100%", borderRadius: "0.5rem" }} />
+                <Typography
+                  sx={{
+                    mt: 1,
+                    "&:hover": {
+                      color: primaryLight,
+                      cursor: "pointer",
+                    },
+                    textDecoration: "underline",
+                  }}
+                >
+                  View More
+                </Typography>
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
     </>
   );
 };
+
 
 export default IndexPage;
