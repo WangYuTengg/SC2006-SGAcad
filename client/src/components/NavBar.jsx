@@ -54,7 +54,6 @@ const NavBar = () => {
     } else {
       setIsLoggedIn(false);
     }
-    console.log(isLoggedIn);
   }, [user]);
 
   // MODALS
