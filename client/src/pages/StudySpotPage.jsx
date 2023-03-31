@@ -1,17 +1,13 @@
-import { Box, Typography, useMediaQuery, Button } from "@mui/material";
+import { Box, Typography, useMediaQuery, Button, Container, Grid, Paper } from "@mui/material";
 import FavoriteButton from "../components/FavoriteButton";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Map from "../components/Map";
 import SubmitReviewForm from "../components/SubmitReviewForm";
 import Reviews from "../components/Reviews";
-import { useSelector } from "react-redux";
 
 const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
-  // console.log(spotId);
-  const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
   const getSpot = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}`, {
@@ -27,50 +23,51 @@ const StudySpotPage = () => {
 
   if (!spot) return null;
   return (
-    <Box>
-      <Box display="flex">
-        <Typography fontWeight="bold" fontSize="1.5rem" padding="2rem">
-          {spot.name}
-        </Typography>
-        <Box padding="2rem">
-          <FavoriteButton favoriteId={spot._id} />
-        </Box>
-      </Box>
-      <Box
-        width="100%"
-        padding="2rem 6%"
-        display={isNonMobileScreens ? "flex" : "block"}
-        gap="2rem"
-        justifyContent="flex-start"
-      >
-        <img
-          src={`${spot.picturePath}`}
-          alt={spot.name}
-          loading="lazy"
-          style={{ width: "40%" }}
-        />
-        <Box sx={{ border: 1 }}>
-          <Box paddingLeft="1rem" paddingRight="1rem">
-            <Typography fontWeight="bold">Details</Typography>
-            <Typography>
-              Address: {spot.location.address}, {spot.location.postal}
+    <Container>
+      <Box my={4}>
+        <Grid container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography fontWeight="bold" fontSize="1.6rem">
+              {spot.name}
             </Typography>
-            <Typography>Opening Hours: </Typography>
-            <li>Weekdays: {spot.misc.openingHours.weekdays}</li>
-            <li>Weekends: {spot.misc.openingHours.weekends}</li>
-            <Typography>Phone: {spot.misc.phoneNumber}</Typography>
-            <Typography>Website: {spot.misc.websiteURL}</Typography>
-          </Box>
+          </Grid>
+          <Grid sx={{p: 2}}>
+            <FavoriteButton favoriteId={spot._id} />
+          </Grid>
+        </Grid>
+        <Grid container spacing={4} justifyContent="center" alignItems="flex-start">
+          <Grid item xs={12} md={6}>
+            <img
+              src={`${spot.picturePath}`}
+              alt={spot.name}
+              loading="lazy"
+              style={{ width: "100%", objectFit: "cover" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Paper sx={{  p: 2 }}>
+              <Typography fontWeight="bold" fontSize="18px" sx={{textDecoration: "underline", pb:1}}>Details</Typography>
+              <Typography fontSize="16px">
+                Address: {spot.location.address}, {spot.location.postal}
+              </Typography>
+              <Typography fontSize="16px">Opening Hours: </Typography>
+              <li>Weekdays: {spot.misc.openingHours.weekdays}</li>
+              <li>Weekends: {spot.misc.openingHours.weekends}</li>
+              <Typography fontSize="16px">Phone: {spot.misc.phoneNumber}</Typography>
+              <Typography fontSize="16px">Website: {spot.misc.websiteURL}</Typography>
+              <Typography fontWeight="bold" fontSize="18px" sx={{textDecoration: "underline", pb:1, pt:1}}>Description</Typography>
+              <Typography fontSize="16px">{spot.description}</Typography>
+            </Paper>
+          </Grid>
+        </Grid>
+        <Box my={4}>
+          <SubmitReviewForm spotId={spot._id} />
         </Box>
-      </Box>
-      <Box display="flex">
-        <SubmitReviewForm spotId={spot._id}/>
-        <Box display="flex">
+        <Box>
           <Reviews spotId={spotId} />
         </Box>
       </Box>
-      
-    </Box>
+    </Container>
   );
 };
 
