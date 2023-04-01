@@ -28,11 +28,14 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) 
   const main = palette.neutral.main;
 
   useEffect(() => {
-    getUser();
-    getSpot();
+    const fetchData = async () => {
+      await getUser();
+      await getSpot();
+    };
+    fetchData();
   }, []);
 
-  if (!user) return null;
+  if (!user || !spot) return null;
   if(isProfile) return (
     <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
       <Favorite 
