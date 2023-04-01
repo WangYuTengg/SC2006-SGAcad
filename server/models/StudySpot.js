@@ -38,11 +38,11 @@ const StudySpotSchema = new mongoose.Schema(
             openingHours: {
                 weekdays: {
                     type: String,
-                    default: "8am - 9pm",
+                    default: "10am - 9pm",
                 },
                 weekends: {
                     type: String,
-                    default: "10am - 8pm",
+                    default: "10am - 9pm",
                 }
             },
 

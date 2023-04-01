@@ -11,7 +11,7 @@ const router = express.Router();
 
 /* READ */
 router.get("/:id", getUser);
-router.get("/:id/reviews", verifyToken, getUserReviews);
+router.get("/:id/reviews", getUserReviews);
 router.get("/:id/favorite-spots", verifyToken, getUserFavoriteSpots);
 
 

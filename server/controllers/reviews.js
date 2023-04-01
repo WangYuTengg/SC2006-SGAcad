@@ -36,7 +36,9 @@ export const getSpotReviews = async (req, res) => {
 
 export const getUserReviews = async (req, res) => {
     try {
-        const { userId } = req.params;
+        const { id } = req.params;
+        const userId = id;
+        console.log(id);
         const review = await Review.find({ userId });
         res.status(200).json(review);
     } catch (err) {

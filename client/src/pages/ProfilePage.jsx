@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import FavoritesListWidget from "../components/FavoritesList.jsx";
 import { Avatar } from "@mui/material";
+import Reviews from "../components/Reviews.jsx";
 
 const ProfilePage = () => {
   const theme = useTheme();
@@ -105,6 +106,9 @@ const ProfilePage = () => {
             <Typography variant="h5" fontWeight="bold" fontSize="1.6rem" mb={2}>
               Reviews Given
             </Typography>
+            <Box>
+              <Reviews spotId={""} newReviews={[]} isProfile={true} />
+            </Box>
           </Box>
         </Grid>
       </Grid>

@@ -44,7 +44,7 @@ const FavoriteButton = ({ favoriteId }) => {
       {isFavorite ? (
         <>
           <FavoriteIcon sx={{ color: primaryDark }} />
-          <Typography sx={{ pl: 2 }}>Remove location to favorites</Typography>
+          <Typography sx={{ pl: 2 }}>Remove location from favorites</Typography>
         </>
       ) : (
         <>

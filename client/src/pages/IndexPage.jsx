@@ -136,7 +136,7 @@ const IndexPage = () => {
           {spots.slice(0, 4).map((spot) => (
             <Grid item xs={12} sm={6} md={3} key={spot._id}>
               <Box
-                sx={{ "&:hover": { transform: "translateY(-0.3em)" } }}
+                sx={{ "&:hover": { transform: "translateY(-0.3em)", cursor: "pointer" } }}
                 onClick={() => navigate(`/studyspots/${spot._id}`)}
                 textAlign="center"
               >
