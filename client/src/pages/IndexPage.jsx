@@ -62,6 +62,14 @@ const IndexPage = () => {
     }
   }
 
+  const shuffleArray = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
   useEffect(() => {
     getCurrentLocation();
   }, [user]);
@@ -143,56 +151,75 @@ const IndexPage = () => {
           Recommended Spots
         </Typography>
         <Grid container spacing={2}>
-          {spots.slice(0, 4).map((spot) => (
-            <Grid item xs={12} sm={6} md={3} key={spot._id}>
-              <Box
-                sx={{
-                  "&:hover": {
-                    transform: "translateY(-0.3em)",
-                    cursor: "pointer",
-                  },
-                }}
-                onClick={() => navigate(`/studyspots/${spot._id}`)}
-                textAlign="center"
-              >
-                <Typography
-                  fontWeight="bold"
-                  fontSize="1.3rem"
-                  sx={{
-                    maxWidth: "100%",
-                    whiteSpace: "nowrap",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    "&:hover": {
-                      color: primaryLight,
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  {spot.name}
-                </Typography>
+          {shuffleArray(spots)
+            .slice(0, 4)
+            .map((spot) => (
+              <Grid item xs={12} sm={6} md={3} key={spot._id}>
                 <Box
-                  component="img"
-                  src={`${spot.picturePath}`}
-                  alt={spot.name}
-                  loading="lazy"
-                  sx={{ width: "100%", borderRadius: "0.5rem" }}
-                />
-                <Typography
                   sx={{
-                    mt: 1,
                     "&:hover": {
-                      color: primaryLight,
+                      transform: "translateY(-0.3em)",
                       cursor: "pointer",
                     },
-                    textDecoration: "underline",
                   }}
+                  onClick={() => navigate(`/studyspots/${spot._id}`)}
+                  textAlign="center"
                 >
-                  View More
-                </Typography>
-              </Box>
-            </Grid>
-          ))}
+                  <Typography
+                    fontWeight="bold"
+                    fontSize="1.3rem"
+                    sx={{
+                      maxWidth: "100%",
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      "&:hover": {
+                        color: primaryLight,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    {spot.name}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: "100%",
+                      paddingTop: "75%", // This sets a 4:3 aspect ratio (you can adjust this value to your preference)
+                      position: "relative",
+                      borderRadius: "0.5rem",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={`${spot.picturePath}`}
+                      alt={spot.name}
+                      loading="lazy"
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                  <Typography
+                    sx={{
+                      mt: 1,
+                      "&:hover": {
+                        color: primaryLight,
+                        cursor: "pointer",
+                      },
+                      textDecoration: "underline",
+                    }}
+                  >
+                    View More
+                  </Typography>
+                </Box>
+              </Grid>
+            ))}
         </Grid>
       </Box>
     </>
