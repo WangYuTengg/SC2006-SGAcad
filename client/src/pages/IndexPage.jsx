@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Map from "../components/Map";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GoogleMapsIconRed, GoogleMapsIconGreen } from "../components/Utils";
 
 const IndexPage = () => {
   const [spots, setSpots] = useState(null);
@@ -109,10 +110,19 @@ const IndexPage = () => {
         >
           Welcome to SG Acad!
         </Typography>
-        <Typography paddingBottom="1rem" fontSize="1.1rem" textAlign="center">
-          Find your perfect study spot here at our website :). Take a look
-          around!
+        <Typography paddingBottom="0.8rem" fontSize="1.1rem" textAlign="center">
+          Find your perfect study spot here at our website :). Explore different
+          spots using our map!
         </Typography>
+        <Box
+          fontSize="0.9rem"
+          textAlign="center"
+          display="flex"
+          alignItems="center"
+        >
+          Legend: <GoogleMapsIconRed /> - Study Spots, <GoogleMapsIconGreen /> -
+          Public Libraries
+        </Box>
         <Map
           currentLocation={
             currentLocation ? currentLocation : defaultSpot.location
@@ -136,7 +146,12 @@ const IndexPage = () => {
           {spots.slice(0, 4).map((spot) => (
             <Grid item xs={12} sm={6} md={3} key={spot._id}>
               <Box
-                sx={{ "&:hover": { transform: "translateY(-0.3em)", cursor: "pointer" } }}
+                sx={{
+                  "&:hover": {
+                    transform: "translateY(-0.3em)",
+                    cursor: "pointer",
+                  },
+                }}
                 onClick={() => navigate(`/studyspots/${spot._id}`)}
                 textAlign="center"
               >

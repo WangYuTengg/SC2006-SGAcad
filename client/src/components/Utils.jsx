@@ -82,3 +82,35 @@ export const SearchBar = () => {
     </FlexBetween>
   );
 };
+
+export const GoogleMapsIconRed = ({ color = "red" }) => {
+  const iconSrc = `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
+
+  return (
+    <Box
+      component="img"
+      src={iconSrc}
+      alt="Custom Google Maps Icon"
+      sx={{
+        width: "24px",
+        height: "24px",
+      }}
+    />
+  );
+};
+
+export const GoogleMapsIconGreen = ({ color = "green" }) => {
+  const iconSrc = `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
+
+  return (
+    <Box
+      component="img"
+      src={iconSrc}
+      alt="Custom Google Maps Icon"
+      sx={{
+        width: "24px",
+        height: "24px",
+      }}
+    />
+  );
+};
