@@ -20,6 +20,10 @@ const registerSchema = yup.object().shape({
   lastName: yup.string().required("required"),
   email: yup.string().email("invalid email").required("required"),
   password: yup.string().required("required"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "passwords must match")
+    .required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -32,6 +36,7 @@ const initialValuesRegister = {
   lastName: "",
   email: "",
   password: "",
+  confirmPassword: "",
   picture: "",
 };
 
@@ -98,6 +103,7 @@ const Form = () => {
           token: loggedIn.token,
         })
       );
+      handleOpenSnackbar("Welcome to SG Acad", "success");
       navigate("/");
     }
   };
@@ -179,6 +185,22 @@ const Form = () => {
               helperText={touched.password && errors.password}
               sx={{ gridColumn: "span 4" }}
             />
+            {isRegister && (
+              <TextField
+                label="Confirm Password"
+                type="password"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.confirmPassword}
+                name="confirmPassword"
+                error={
+                  Boolean(touched.confirmPassword) &&
+                  Boolean(errors.confirmPassword)
+                }
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                sx={{ gridColumn: "span 4" }}
+              />
+            )}
           </Box>
 
           {/* BUTTONS */}
