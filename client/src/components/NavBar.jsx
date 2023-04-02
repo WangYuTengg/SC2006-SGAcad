@@ -61,18 +61,6 @@ const NavBar = () => {
   const handleSubmitSpotModalOpen = () => setSubmitSpotModalOpen(true);
   const handleSubmitSpotModalClose = () => setSubmitSpotModalOpen(false);
 
-  const buttonStyle = {
-    width: 140,
-    p: "1rem",
-    m: "1rem 0",
-    borderRadius: 2,
-    backgroundColor: palette.primary.main,
-    color: palette.background.alt,
-    "&:hover": { color: palette.primary.main },
-    right: "5.8rem",
-    bottom: "4.25rem",
-  };
-
   const renderSubmitSpotModal = () => {
     return (
       <Modal
@@ -80,13 +68,11 @@ const NavBar = () => {
         open={submitSpotModalOpen}
         onClose={handleSubmitSpotModalClose}
         footer={null}
+        sx={{ zIndex: 2000 }}
       >
         <Box sx={SubmitSpotFormModalStyle} textAlign="center">
           <Typography sx={{ pb: 2 }}>Submit a study Spot!</Typography>
           <SubmitSpotForm />
-          <Button sx={buttonStyle} onClick={handleSubmitSpotModalClose}>
-            Close
-          </Button>
         </Box>
       </Modal>
     );
@@ -139,7 +125,6 @@ const NavBar = () => {
                   Log Out
                 </MenuItem>
               </Select>
-              {submitSpotModalOpen && renderSubmitSpotModal()}
             </FormControl>
           ) : (
             <Typography
@@ -234,7 +219,6 @@ const NavBar = () => {
                     Log Out
                   </MenuItem>
                 </Select>
-                {submitSpotModalOpen && renderSubmitSpotModal()}
               </FormControl>
             ) : (
               <Typography
@@ -254,6 +238,7 @@ const NavBar = () => {
           </FlexBetween>
         </Box>
       )}
+      {submitSpotModalOpen && renderSubmitSpotModal()}
     </FlexBetween>
   );
 };
