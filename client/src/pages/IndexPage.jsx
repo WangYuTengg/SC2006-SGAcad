@@ -17,7 +17,7 @@ import { GoogleMapsIconRed, GoogleMapsIconGreen } from "../components/Utils";
  * IndexPage
  * Main landing page of web application. Renders the map component and 4 recommended spots.
  * Recommended spots are based on a random recommendation system.
- * 
+ *
  * @page
  * @example
  * // Usage
@@ -55,7 +55,7 @@ const IndexPage = () => {
     setSpots(data);
   };
 
-  // function to get user's current location 
+  // function to get user's current location
   function getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
