@@ -95,6 +95,9 @@ const StudySpotPage = () => {
               <Typography fontSize="16px">
                 Website: {spot.misc.websiteURL}
               </Typography>
+              <Typography fontSize="16px" color="primary">
+                {spot.isLibrary ? <a href="https://www.nlb.gov.sg/visitors" target="_blank">Check crowd</a> : ""}
+              </Typography>
               <Typography
                 fontWeight="bold"
                 fontSize="18px"
