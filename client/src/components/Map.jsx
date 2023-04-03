@@ -7,6 +7,21 @@ import {
 } from "@react-google-maps/api";
 import { Paper, Tooltip, Typography } from "@mui/material";
 
+/**
+ * Map
+ * This component renders a Google Map with custom markers for study spots and the user's current location.
+ * It also provides tooltips and an info window for additional information about each marker.
+ *
+ * @component
+ * @param {Object} currentLocation - The user's current location (latitude and longitude coordinates).
+ * @param {string} width - The width of the map container.
+ * @param {string} height - The height of the map container.
+ * @param {Array} spots - An array of study spots to be displayed as markers on the map.
+ *
+ * @example
+ * // Usage
+ * <Map currentLocation={currentLocation} width="100%" height="400px" spots={spots} />
+ */
 const Map = ({ currentLocation, width, height, spots }) => {
   const studySpots = spots;
   const [popupContent, setPopupContent] = useState(null);

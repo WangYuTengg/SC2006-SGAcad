@@ -13,6 +13,15 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleMapsIconRed, GoogleMapsIconGreen } from "../components/Utils";
 
+/**
+ * IndexPage
+ * Main landing page of SGAcad. Displays the map and 4 randomly recommended spots.
+ *
+ * @page
+ * @example
+ * // Usage
+ * <IndexPage />
+ */
 const IndexPage = () => {
   const [spots, setSpots] = useState(null);
   const [defaultSpot, setDefaultSpot] = useState(null);
@@ -25,6 +34,7 @@ const IndexPage = () => {
   const theme = useTheme();
   const primaryLight = theme.palette.primary.light;
 
+  // Function to get default spot in case user denies permission to access their current location
   const getDefaultSpot = async () => {
     const response = await fetch(
       `http://localhost:3001/studyspots/${defaultSpotId}`,
@@ -36,6 +46,7 @@ const IndexPage = () => {
     setDefaultSpot(data);
   };
 
+  // Function to fetch all study spot data
   const getSpots = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/`, {
       method: "GET",
@@ -44,6 +55,7 @@ const IndexPage = () => {
     setSpots(data);
   };
 
+  // Function to get user's current location
   function getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -62,6 +74,7 @@ const IndexPage = () => {
     }
   }
 
+  // Function to randomly shuffle the array for the random recommendation of 4 spots
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
