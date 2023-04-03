@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Favorite from "./Favorite";
 import moment from "moment/moment";
 
-const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) => {
+const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false, createdAt }) => {
   const [user, setUser] = useState(null);
   const [spot, setSpot] = useState(null);
 
@@ -50,7 +50,7 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) 
           {user.firstName} {user.lastName}
         </Typography>
         <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
-          Posted on {moment(spot.createdAt).format('DD-MM-YYYY HH:mm:ss')}
+          Posted on {moment(createdAt).format('DD-MM-YYYY HH:mm:ss')}
         </Typography>
         <Rating name="read-only" value={rating} readOnly />
         <Typography color={main} sx={{ mt: "1rem" }}>
@@ -66,7 +66,7 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) 
           {user.firstName} {user.lastName}
         </Typography>
         <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
-          Posted on {moment(spot.createdAt).format('DD-MM-YYYY HH:mm:ss')}
+          Posted on {moment(createdAt).format('LLLL')}
         </Typography>
         <Rating name="read-only" value={rating} readOnly />
         <Typography color={main} sx={{ mt: "1rem" }}>

@@ -14,12 +14,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const isLoggedIn = () => {
-  const user = useSelector((state) => state.user);
-  if (user) return true;
-  else return false;
-};
-
 const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
   const { palette } = useTheme();
   const [review, setReview] = useState("");

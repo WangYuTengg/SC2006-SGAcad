@@ -42,7 +42,7 @@ const Reviews = ({ spotId, newReviews, isProfile=false }) => {
 
   return (
     <>
-      {reviews.slice(0).reverse().map(({ _id, userId, spotId, rating, comment }) => (
+      {reviews.slice(0).reverse().map(({ _id, userId, spotId, rating, comment, createdAt }) => (
         <Review
           key={_id}
           reviewId={_id}
@@ -51,6 +51,7 @@ const Reviews = ({ spotId, newReviews, isProfile=false }) => {
           rating={rating}
           comment={comment}
           isProfile={isProfile}
+          createdAt={createdAt}
         />
       ))}
     </>
