@@ -1,6 +1,6 @@
 # SG-Acad
 ## Setup:
-- ``` npm create vite@latest``` -> set up vite dev environment -> choose react + JS
+- ``` npm create vite@latest \n testing ``` -> set up vite dev environment -> choose react + JS
 - ``` npm i ``` -> install dependencies
 - ``` npm install @mui/material @emotion/react @emotion/styled @mui/icons-material``` -> install materialUI
 - ``` npm install react-icons --save ``` -> install react-icons
