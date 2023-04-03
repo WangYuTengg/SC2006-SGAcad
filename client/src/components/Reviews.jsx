@@ -10,15 +10,15 @@ import Review from "./Review";
  *
  * @component
  * @param {string} spotId - The ID of the study spot for which to fetch the reviews.
- * @param  {array} newReviews - An array of new reviews to be added to the existing list of reviews.
+ * @param  {object} newReview - New review to be added to the existing list of reviews.
  * @param {boolean} isProfile - If true, fetches the user's reviews instead of the study spot's reviews.
- * 
+ *
  * @example
  * // Usage
  * <Reviews spotId="123" newReviews={[]} />
  * <Reviews spotId="123" newReviews={[]} isProfile={true} />
  */
-const Reviews = ({ spotId, newReviews, isProfile=false }) => {
+const Reviews = ({ spotId, newReview, isProfile = false }) => {
   const [reviews, setReviews] = useState([]);
   const { _id } = useSelector((state) => state.user) || "";
   const token = useSelector((state) => state.token);
@@ -32,35 +32,46 @@ const Reviews = ({ spotId, newReviews, isProfile=false }) => {
       }
     );
     const data = await response.json();
-    setReviews([...newReviews, ...data]);
+    if (newReview !== null) {
+      setReviews([newReview, ...data]);
+    } else {
+      setReviews(data.reverse());
+    }
   };
-  
+
   // Fetches the user's reviews and updates the state.
   const getUserReviews = async () => {
-    const response = await fetch(
-      `http://localhost:3001/users/${_id}/reviews`,
-      {
-        method: "GET",
-        headers: { Authorization: `Bearer ${token}` }
-      }
-    );
+    const response = await fetch(`http://localhost:3001/users/${_id}/reviews`, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await response.json();
-    setReviews([...newReviews, ...data]);
-  }
+    if (newReview !== null) {
+      setReviews([newReview, ...data]);
+    } else {
+      setReviews(data.reverse());
+    }
+  };
 
-  // Fetch data upon change in spot and state of reviews
+  // Fetch data upon change in spot
   useEffect(() => {
     if (isProfile) {
       getUserReviews();
-    }
-    else {
+    } else {
       getReviews();
     }
-  }, [spotId, newReviews]);
+  }, [spotId, isProfile]);
+
+  // Reviews Component
+  useEffect(() => {
+    if (newReview) {
+      setReviews((prevReviews) => [newReview, ...prevReviews]);
+    }
+  }, [newReview]);
 
   return (
     <>
-      {reviews.slice(0).reverse().map(({ _id, userId, spotId, rating, comment, createdAt }) => (
+      {reviews.map(({ _id, userId, spotId, rating, comment, createdAt }) => (
         <Review
           key={_id}
           reviewId={_id}

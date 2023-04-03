@@ -16,7 +16,7 @@ import Reviews from "../components/Reviews";
  * StudySpotPage
  * This page displays the details of each individual study spot.
  * The page is dynamically rendered depending on the url which corresponds to the spotId of the study spot we are rendering.
- * 
+ *
  * @page
  * @example
  * // Usage
@@ -26,8 +26,8 @@ const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
   const [loading, setLoading] = useState(true);
-  const [newReviews, setNewReviews] = useState([]);
-  
+  const [newReview, setNewReview] = useState(null);
+
   // function to send a GET request to get study spot's data
   const getSpot = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}`, {
@@ -46,6 +46,10 @@ const StudySpotPage = () => {
 
     fetchData();
   }, []);
+
+  const handleNewReview = (newReview) => {
+    setNewReview(newReview);
+  };
 
   if (loading) {
     return (
@@ -109,7 +113,13 @@ const StudySpotPage = () => {
                 Website: {spot.misc.websiteURL}
               </Typography>
               <Typography fontSize="16px" color="primary">
-                {spot.isLibrary ? <a href="https://www.nlb.gov.sg/visitors" target="_blank">Check crowd</a> : ""}
+                {spot.isLibrary ? (
+                  <a href="https://www.nlb.gov.sg/visitors" target="_blank">
+                    Check crowd
+                  </a>
+                ) : (
+                  ""
+                )}
               </Typography>
               <Typography
                 fontWeight="bold"
@@ -134,13 +144,11 @@ const StudySpotPage = () => {
         <Box my={2}>
           <SubmitReviewForm
             spotId={spot._id}
-            onReviewSubmitted={(newReview) =>
-              setNewReviews([...newReviews, newReview])
-            }
+            onReviewSubmitted={handleNewReview}
           />
         </Box>
         <Box>
-          <Reviews spotId={spotId} newReviews={newReviews} />
+          <Reviews spotId={spotId} isProfile={false} newReview={newReview} />
         </Box>
       </Box>
     </Container>

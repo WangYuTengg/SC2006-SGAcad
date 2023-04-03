@@ -64,7 +64,8 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
     );
     if (response.status === 201) {
       const data = await response.json();
-      onReviewSubmitted(data);
+      const newReview = data[data.length - 1];
+      onReviewSubmitted(newReview);
       handleOpenSnackbar("Review Posted!", "success");
       setReview("");
       setRating(0);

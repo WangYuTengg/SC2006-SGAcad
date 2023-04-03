@@ -1,5 +1,5 @@
 import { Rating, useTheme, Typography, Box } from "@mui/material";
-import {WidgetWrapper} from "./Utils";
+import { WidgetWrapper } from "./Utils";
 import { useEffect, useState } from "react";
 import Favorite from "./Favorite";
 import moment from "moment/moment";
@@ -22,7 +22,15 @@ import moment from "moment/moment";
  * // Usage
  * <Review reviewId="1" userId="2" spotId="3" rating={4} comment="Great study spot!" createdAt="2022-05-25T10:30:00" />
  */
-const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false, createdAt }) => {
+const Review = ({
+  reviewId,
+  userId,
+  spotId,
+  rating,
+  comment,
+  isProfile = false,
+  createdAt,
+}) => {
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const [user, setUser] = useState(null);
@@ -56,44 +64,46 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false, cr
   }, []);
 
   if (!user || !spot) return null;
-  if(isProfile) return (
-    <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
-      <Favorite 
-        key={reviewId}
-        favoriteId={spotId}
-        name={spot.name}
-        picturePath={spot.picturePath}
-      />
-      <WidgetWrapper m="2rem 0">
-        <Typography color={main} sx={{ mt: "1rem" }}>
-          {user.firstName} {user.lastName}
-        </Typography>
-        <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
-          Posted on {moment(createdAt).format('DD-MM-YYYY HH:mm:ss')}
-        </Typography>
-        <Rating name="read-only" value={rating} readOnly />
-        <Typography color={main} sx={{ mt: "1rem" }}>
-          {comment}
-        </Typography>
-      </WidgetWrapper>
-    </Box>
-  );
-  else return (
-    <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
-      <WidgetWrapper m="2rem 0">
-        <Typography color={main} sx={{ mt: "1rem" }}>
-          {user.firstName} {user.lastName}
-        </Typography>
-        <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
-          Posted on {moment(createdAt).format('LLLL')}
-        </Typography>
-        <Rating name="read-only" value={rating} readOnly />
-        <Typography color={main} sx={{ mt: "1rem" }}>
-          {comment}
-        </Typography>
-      </WidgetWrapper>
-    </Box>
-  );
+  if (isProfile)
+    return (
+      <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
+        <Favorite
+          key={reviewId}
+          favoriteId={spotId}
+          name={spot.name}
+          picturePath={spot.picturePath}
+        />
+        <WidgetWrapper m="2rem 0">
+          <Typography color={main} sx={{ mt: "1rem" }}>
+            {user.firstName} {user.lastName}
+          </Typography>
+          <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
+            Posted on {moment(createdAt).format("DD-MM-YYYY HH:mm:ss")}
+          </Typography>
+          <Rating name="read-only" value={rating} readOnly />
+          <Typography color={main} sx={{ mt: "1rem" }}>
+            {comment}
+          </Typography>
+        </WidgetWrapper>
+      </Box>
+    );
+  else
+    return (
+      <Box padding="0.5rem" key={{ userId, reviewId, spotId }}>
+        <WidgetWrapper m="2rem 0">
+          <Typography color={main} sx={{ mt: "1rem" }}>
+            {user.firstName} {user.lastName}
+          </Typography>
+          <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
+            Posted on {moment(createdAt).format("LLLL")}
+          </Typography>
+          <Rating name="read-only" value={rating} readOnly />
+          <Typography color={main} sx={{ mt: "1rem" }}>
+            {comment}
+          </Typography>
+        </WidgetWrapper>
+      </Box>
+    );
 };
 
 export default Review;
