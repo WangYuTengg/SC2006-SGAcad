@@ -1,7 +1,6 @@
 import {
   Divider,
   Typography,
-  useTheme,
   Grid,
   CircularProgress,
 } from "@mui/material";
@@ -13,14 +12,24 @@ import FavoritesListWidget from "../components/FavoritesList.jsx";
 import { Avatar } from "@mui/material";
 import Reviews from "../components/Reviews.jsx";
 
+/**
+ * ProfilePage
+ * This page displays a user's profile, including their personal information,
+ * a list of their favorite study spots, and a list of the reviews they have given.
+ *
+ * @page
+ * @example
+ * // Usage
+ * <ProfilePage />
+ */
 const ProfilePage = () => {
-  const theme = useTheme();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const { userId } = useParams();
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
 
+  // Fetch user data from the server
   const getUser = async () => {
     const response = await fetch(`http://localhost:3001/users/${userId}`, {
       method: "GET",
@@ -30,6 +39,7 @@ const ProfilePage = () => {
     setUser(data);
   };
 
+  // Fetch user data when page is entered
   useEffect(() => {
     const fetchData = async () => {
       await getUser();

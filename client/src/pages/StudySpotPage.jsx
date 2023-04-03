@@ -12,11 +12,23 @@ import { useParams } from "react-router-dom";
 import SubmitReviewForm from "../components/SubmitReviewForm";
 import Reviews from "../components/Reviews";
 
+/**
+ * StudySpotPage
+ * This page displays the details of each individual study spot.
+ * The page is dynamically rendered depending on the url which corresponds to the spotId of the study spot we are rendering.
+ * 
+ * @page
+ * @example
+ * // Usage
+ * <StudySpotPage />
+ */
 const StudySpotPage = () => {
   const [spot, setSpot] = useState(null);
   const { spotId } = useParams();
   const [loading, setLoading] = useState(true);
   const [newReviews, setNewReviews] = useState([]);
+  
+  // function to send a GET request to get study spot's data
   const getSpot = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/${spotId}`, {
       method: "GET",
@@ -25,6 +37,7 @@ const StudySpotPage = () => {
     setSpot(data);
   };
 
+  // fetch data of study spot upon loading into page
   useEffect(() => {
     const fetchData = async () => {
       await getSpot();
