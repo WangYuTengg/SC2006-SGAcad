@@ -13,16 +13,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GoogleMapsIconRed, GoogleMapsIconGreen } from "../components/Utils";
 
-/**
- * IndexPage
- * Main landing page of web application. Renders the map component and 4 recommended spots.
- * Recommended spots are based on a random recommendation system.
- *
- * @page
- * @example
- * // Usage
- * <StudySpotPage />
- */
 const IndexPage = () => {
   const [spots, setSpots] = useState(null);
   const [defaultSpot, setDefaultSpot] = useState(null);
@@ -46,7 +36,6 @@ const IndexPage = () => {
     setDefaultSpot(data);
   };
 
-  // function to send GET request to get data of all study spots
   const getSpots = async () => {
     const response = await fetch(`http://localhost:3001/studyspots/`, {
       method: "GET",
@@ -55,7 +44,6 @@ const IndexPage = () => {
     setSpots(data);
   };
 
-  // function to get user's current location
   function getCurrentLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -74,7 +62,6 @@ const IndexPage = () => {
     }
   }
 
-  // function to randomise array of study spots for the random recommendation system
   const shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -83,12 +70,10 @@ const IndexPage = () => {
     return array;
   };
 
-  // fetch user's current location upon change in user's state
   useEffect(() => {
     getCurrentLocation();
   }, [user]);
 
-  // fetch data of study spots upon loading into index page
   useEffect(() => {
     const fetchData = async () => {
       await getDefaultSpot();
