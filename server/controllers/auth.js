@@ -2,7 +2,15 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
-/* REGISTER USER */
+// AuthController module
+
+/**
+ * Registers a new user.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The saved user object.
+ */
 export const register = async (req, res) => {
     try {
         console.log("register req body: ", req.body);
@@ -21,7 +29,7 @@ export const register = async (req, res) => {
             lastName,
             email,
             password: passwordHash,
-        })
+        });
         const savedUser = await newUser.save();
         res.status(201).json(savedUser);
     } catch (err) {
@@ -30,7 +38,13 @@ export const register = async (req, res) => {
     }
 };
 
-/* LOGIN USER */
+/**
+ * Logs in a user.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The token and user object.
+ */
 export const login = async (req, res) => {
     try{
         const { email, password } = req.body;

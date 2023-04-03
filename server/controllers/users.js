@@ -1,7 +1,15 @@
 import StudySpot from "../models/StudySpot.js";
 import User from "../models/User.js";
 
-/* READ */
+// UserController module
+
+/**
+ * Retrieves a user by its ID.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The user object.
+ */
 export const getUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -12,6 +20,13 @@ export const getUser = async (req, res) => {
   }
 };
 
+/**
+ * Retrieves a user's favorite study spots.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Array} The list of formatted favorite study spots.
+ */
 export const getUserFavoriteSpots = async (req, res) => {
     try {
       const { id } = req.params;
@@ -32,7 +47,13 @@ export const getUserFavoriteSpots = async (req, res) => {
     }
   };
 
-/* UPDATE */
+/**
+ * Adds or removes a study spot from a user's favorites.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Array} The list of formatted favorite study spots.
+ */
 export const addRemoveFavorites = async (req, res) => {
     try {
       const { spotId, userId } = req.params;

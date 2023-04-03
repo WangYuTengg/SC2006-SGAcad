@@ -1,7 +1,19 @@
 import Review from "../models/Review.js";
-import User from "../models/User.js";
 
-/* CREATE */
+// ReviewController module
+
+/**
+ * Create a new review for a study spot.
+ * @route POST /studyspots/:spotId/reviews
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - Request URL parameters.
+ * @param {string} req.params.spotId - Study spot ID.
+ * @param {Object} req.body - Request body data.
+ * @param {string} req.body.userId - ID of the user who creates the review.
+ * @param {number} req.body.rating - Rating given by the user.
+ * @param {string} req.body.comment - Comment provided by the user.
+ * @param {Object} res - Express response object.
+ */
 export const createReview = async (req, res) => {
     try {
         const { userId, rating, comment} = req.body;
@@ -23,7 +35,14 @@ export const createReview = async (req, res) => {
     }
 };
 
-/* READ */
+/**
+ * Get all reviews for a specific study spot.
+ * @route GET /studyspots/:spotId/reviews
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - Request URL parameters.
+ * @param {string} req.params.spotId - Study spot ID.
+ * @param {Object} res - Express response object.
+ */
 export const getSpotReviews = async (req, res) => {
     try {
         const { spotId } = req.params; // if url contains ":spotId", then req.params will contain spotId: ""
@@ -34,6 +53,15 @@ export const getSpotReviews = async (req, res) => {
     }
 };
 
+
+/**
+ * Get all reviews created by a specific user.
+ * @route GET /users/:id/reviews
+ * @param {Object} req - Express request object.
+ * @param {Object} req.params - Request URL parameters.
+ * @param {string} req.params.id - User ID.
+ * @param {Object} res - Express response object.
+ */
 export const getUserReviews = async (req, res) => {
     try {
         const { id } = req.params;
@@ -45,8 +73,3 @@ export const getUserReviews = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 }
-
-/* UPDATE */
-// export const editReview = async (req, res) => {
-
-// };

@@ -1,6 +1,3 @@
-import { createStudySpot } from "../controllers/studyspots.js";
-import StudySpot from "../models/StudySpot.js";
-
 const submitSpot = async (data) => {
   const response = await fetch(
     `http://localhost:3001/studyspots/create`,
@@ -30,7 +27,6 @@ fetch("https://eservice.nlb.gov.sg/rss/libraries")
     const addressRegExp = /<address[^>]*>(.*?)<\/address>/;
     const faxNumberRegExp = /<faxNumber[^>]*>(.*?)<\/faxNumber>/;
     const georssPointRegExp = /<georss:point[^>]*>(.*?)<\/georss:point>/;
-    const operatingHoursRegExp = /<operatingHours[^>]*>(.*?)<\/operatingHours>/;
 
     // Extract the individual items from the RSS feed
     let items = xmlString.match(itemRegExp);
@@ -43,7 +39,6 @@ fetch("https://eservice.nlb.gov.sg/rss/libraries")
       let addressMatch = item.match(addressRegExp);
       let faxNumberMatch = item.match(faxNumberRegExp);
       let georssPointMatch = item.match(georssPointRegExp);
-      let operatingHoursMatch = item.match(operatingHoursRegExp);
 
       let title = titleMatch ? titleMatch[1] : "Untitled";
       let description = descriptionMatch ? descriptionMatch[1] : "";
@@ -52,7 +47,6 @@ fetch("https://eservice.nlb.gov.sg/rss/libraries")
       let postal = address ? address.slice(-6) : "";
       let faxNumber = faxNumberMatch ? faxNumberMatch[1] : "";
       let georssPoint = georssPointMatch ? georssPointMatch[1] : "";
-      let operatingHours = operatingHoursMatch ? operatingHoursMatch[1] : "";
 
       georssPoint = georssPoint.split(" ").map(Number);
       // Print the extracted data
