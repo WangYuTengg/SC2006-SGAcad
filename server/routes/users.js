@@ -1,5 +1,4 @@
 import express from "express";
-import { verify } from "jsonwebtoken";
 import { getUserReviews } from "../controllers/reviews.js";
 import {
     getUser,

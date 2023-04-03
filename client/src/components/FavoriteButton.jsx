@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, useTheme, Button } from "@mui/material";
+import { Typography, useTheme, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavoriteSpots } from "../state/index";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -36,7 +36,8 @@ const FavoriteButton = ({ favoriteId }) => {
     dispatch(setFavoriteSpots({ favoriteSpots: data }));
   };
 
-  return (
+  if(!_id) return null;
+  else return (
     <Button
       onClick={() => patchFavorite()}
       sx={{ backgroundColor: primaryLight, p: "1rem" }}
