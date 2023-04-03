@@ -7,16 +7,26 @@ import {
 } from "@react-google-maps/api";
 import { Paper, Tooltip, Typography } from "@mui/material";
 
+/**
+ * Map component
+ * This component renders a Google Map with custom markers for study spots and the user's current location.
+ * It also provides tooltips and an info window for additional information about each marker.
+ *
+ * @component
+ * @param {Object} currentLocation - The user's current location (latitude and longitude coordinates).
+ * @param {string} width - The width of the map container.
+ * @param {string} height - The height of the map container.
+ * @param {Array} spots - An array of study spots to be displayed as markers on the map.
+ *
+ * @example
+ * // Usage
+ * <Map currentLocation={currentLocation} width="100%" height="400px" spots={spots} />
+ */
 const Map = ({ currentLocation, width, height, spots }) => {
   const studySpots = spots;
   const [popupContent, setPopupContent] = useState(null);
   const [selectedMarker, setSelectedMarker] = useState(null);
-  const getMarkerIcon = (isLibrary) => {
-    const color = isLibrary ? "green" : "red";
-    return {
-      url: `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`,
-    };
-  };
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBkfUr4OIICxpi59JLmjMoDCe7zAmWR15k",
@@ -32,6 +42,15 @@ const Map = ({ currentLocation, width, height, spots }) => {
     lng: currentLocation.coordinates[1],
   };
 
+  // Function to get marker icon based on the spot's type
+  const getMarkerIcon = (isLibrary) => {
+    const color = isLibrary ? "green" : "red";
+    return {
+      url: `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`,
+    };
+  };
+
+  // Function to navigate to the study spot's detail page
   const handleNavigate = (spot) => {
     window.location.href = `/studyspots/${spot._id}`;
   };
@@ -39,26 +58,17 @@ const Map = ({ currentLocation, width, height, spots }) => {
   const handleMarkerClick = (spot) => {
     setSelectedMarker(spot);
   };
-
   const onInfoWindowClose = () => {
     setSelectedMarker(null);
   };
-
   const handleMarkerMouseOver = (spot) => {
     setPopupContent(spot.name);
   };
-
   const handleMarkerMouseOut = () => {
     setPopupContent(null);
   };
-
-  const onLoad = React.useCallback(function callback(map) {
-    // do nothing
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    // do nothing
-  }, []);
+  const onLoad = React.useCallback(function callback(map) {}, []);
+  const onUnmount = React.useCallback(function callback(map) {}, []);
 
   return isLoaded ? (
     <>
@@ -126,7 +136,7 @@ const Map = ({ currentLocation, width, height, spots }) => {
       </GoogleMap>
     </>
   ) : (
-    <></>
+    <div>Error loading map</div>
   );
 };
 

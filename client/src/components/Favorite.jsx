@@ -5,23 +5,41 @@ import { setFavoriteSpots } from "../state/index";
 import { FlexBetween } from "./Utils";
 import FavoriteButton from "./FavoriteButton";
 
+/**
+ * Favorite Component
+ * This component displays a favorite study spot item with its image, name, subtitle,
+ * and a favorite button to add or remove the spot from the user's favorite spots list.
+ * 
+ * @component
+ * @example
+ * // Usage
+ * <Favorite
+ *   favoriteId="60a2c932cf57e00015fa0d42"
+ *   name="Library"
+ *   subtitle="Location"
+ *   picturePath="https://example.com/image.jpg"
+ * />
+ * @param {string} favoriteId - The study spot's ID to be added or removed from the user's favorite spots list.
+ * @param {string} name - The study spot's name.
+ * @param {string} subtitle - The study spot's subtitle or location.
+ * @param {string} picturePath - The URL of the study spot's image.
+ */
 const Favorite = ({ favoriteId, name, subtitle, picturePath }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
-
   const { palette } = useTheme();
-  const primaryLight = palette.primary.light;
-  const primaryDark = palette.primary.dark;
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
 
+  // Check if the spot is already in the user's list of favorite spots
   const isFavorite = favoriteSpots.find(
     (favorite) => favorite._id === favoriteId
   );
 
+  // Function to send a PATCH request to update the user's favorite spots list
   const patchFavorite = async () => {
     const response = await fetch(
       `http://localhost:3001/studyspots/${favoriteId}/${_id}`,

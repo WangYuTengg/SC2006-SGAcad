@@ -9,7 +9,6 @@ import {
   FormControl,
   useTheme,
   useMediaQuery,
-  Button,
   Modal,
 } from "@mui/material";
 import { DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
@@ -24,6 +23,16 @@ import {
   SearchBar,
 } from "./Utils";
 
+/**
+ * NavBar Component
+ * This component represents the navigation bar used throughout the application.
+ * It includes a search bar, user authentication menu, theme toggle, and other navigation options.
+ * 
+ * @component
+ * @example
+ * // Usage
+ * <NavBar />
+ */
 const NavBar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,19 +41,19 @@ const NavBar = () => {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
-
-  // THEME
   const theme = useTheme();
-  const { palette } = useTheme();
   const neutralLight = theme.palette.neutral.light;
   const dark = theme.palette.neutral.dark;
   const background = theme.palette.background.default;
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
-
-  // SET USER
   const [fullName, setFullName] = useState("");
   const [userId, setUserId] = useState("");
+  const [submitSpotModalOpen, setSubmitSpotModalOpen] = useState(false);
+  const handleSubmitSpotModalOpen = () => setSubmitSpotModalOpen(true);
+  const handleSubmitSpotModalClose = () => setSubmitSpotModalOpen(false);
+
+  // Update isLoggedIn state and user information whenever user state changes
   useEffect(() => {
     if (user && user !== null && token !== null) {
       setIsLoggedIn(true);
@@ -56,11 +65,7 @@ const NavBar = () => {
     }
   }, [user]);
 
-  // MODALS
-  const [submitSpotModalOpen, setSubmitSpotModalOpen] = useState(false);
-  const handleSubmitSpotModalOpen = () => setSubmitSpotModalOpen(true);
-  const handleSubmitSpotModalClose = () => setSubmitSpotModalOpen(false);
-
+  // Render submit spot modal
   const renderSubmitSpotModal = () => {
     return (
       <Modal

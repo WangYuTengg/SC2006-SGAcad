@@ -15,32 +15,44 @@ import * as yup from "yup";
 import Dropzone from "react-dropzone";
 import { FlexBetween } from "./Utils";
 
-const formSchema = yup.object().shape({
-  name: yup.string().required("required"),
-  description: yup.string().required("required"),
-  address: yup.string().required("required"),
-  postal: yup
-    .string()
-    .required()
-    .matches(/^[0-9]+$/, "Must be only digits")
-    .min(6, "Must be exactly 6 digits")
-    .max(6, "Must be exactly 6 digits"),
-  picture: yup.string().optional(),
-});
-
-const initialValuesSpot = {
-  name: "",
-  description: "",
-  address: "",
-  postal: "",
-  picture: "",
-};
-
+/**
+ * SubmitSpotForm component 
+ * Component that allows users to submit a new spot.
+ * 
+ * @component
+ * @example
+ * // Usage
+ * <SubmitSpotForm  />
+ */
 const SubmitSpotForm = () => {
   const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const [snackbarOpen, setSnackBarOpen] = useState(false);
   const handleSnackbarClose = () => setSnackBarOpen(false);
+  
+  // Schema for study spot submission
+  const formSchema = yup.object().shape({
+    name: yup.string().required("required"),
+    description: yup.string().required("required"),
+    address: yup.string().required("required"),
+    postal: yup
+      .string()
+      .required()
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(6, "Must be exactly 6 digits")
+      .max(6, "Must be exactly 6 digits"),
+    picture: yup.string().optional(),
+  });
+  
+  const initialValuesSpot = {
+    name: "",
+    description: "",
+    address: "",
+    postal: "",
+    picture: "",
+  };
+
+  // Handle submission of form 
   const handleFormSubmit = async (values, onSubmitProps) => {
     try {
       setSnackBarOpen(true);
@@ -48,6 +60,7 @@ const SubmitSpotForm = () => {
       console.error(error);
     }
   };
+
   const buttonStyle = {
     width: 140,
     p: "1rem",
@@ -56,6 +69,7 @@ const SubmitSpotForm = () => {
     "&:hover": { color: palette.primary.main },
     borderRadius: 2,
   };
+
   const formStyles = {
     container: {
       maxWidth: "500px",
@@ -78,6 +92,7 @@ const SubmitSpotForm = () => {
       marginTop: "1rem",
     },
   };
+
   return (
     <Box sx={formStyles.container}>
       <Formik

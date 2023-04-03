@@ -5,12 +5,27 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFavoriteSpots } from "../state/index";
 
+/**
+ * FavoritesList Component.
+ *
+ * This component renders a widget that displays the user to view their list of favorite spots.
+ * Users can also remove their favorited spots from the list using the user's ID and study spot's ID to
+ * make a PATCH request to update the user's favoriteSpots state.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <FavoritesListWidget userId="60a2c932cf57e00015fa0d42" />
+ *
+ * @param {string} userId - The ID of the user whose favorite list we are rendering
+ */
 const FavoritesListWidget = ({ userId }) => {
   const dispatch = useDispatch();
   const { palette } = useTheme();
   const token = useSelector((state) => state.token);
   const favoriteSpots = useSelector((state) => state.user.favoriteSpots);
 
+  // function that sends a GET request to get list of favorite spots of user
   const getFavorites = async () => {
     const response = await fetch(
       `http://localhost:3001/users/${userId}/favorite-spots`,

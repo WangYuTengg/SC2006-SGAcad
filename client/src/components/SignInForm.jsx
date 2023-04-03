@@ -15,36 +15,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../state/index";
 
-const registerSchema = yup.object().shape({
-  firstName: yup.string().required("required"),
-  lastName: yup.string().required("required"),
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "passwords must match")
-    .required("required"),
-});
-
-const loginSchema = yup.object().shape({
-  email: yup.string().email("invalid email").required("required"),
-  password: yup.string().required("required"),
-});
-
-const initialValuesRegister = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-  picture: "",
-};
-
-const initialValuesLogin = {
-  email: "",
-  password: "",
-};
-
+/**
+ * Form component that allows users to log in or register.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <Form />
+ */
 const Form = () => {
   const [pageType, setPageType] = useState("login");
   const { palette } = useTheme();
@@ -53,6 +31,38 @@ const Form = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const isLogin = pageType === "login";
   const isRegister = pageType === "register";
+
+  // Schema for Registration form
+  const registerSchema = yup.object().shape({
+    firstName: yup.string().required("required"),
+    lastName: yup.string().required("required"),
+    email: yup.string().email("invalid email").required("required"),
+    password: yup.string().required("required"),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "passwords must match")
+      .required("required"),
+  });
+
+  // Schema for Login form
+  const loginSchema = yup.object().shape({
+    email: yup.string().email("invalid email").required("required"),
+    password: yup.string().required("required"),
+  });
+
+  const initialValuesRegister = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    picture: "",
+  };
+
+  const initialValuesLogin = {
+    email: "",
+    password: "",
+  };
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -65,6 +75,7 @@ const Form = () => {
     setSnackbar({ open: true, message, severity });
   };
 
+  // Function to handle the registration of user
   const register = async (values, onSubmitProps) => {
     try {
       const response = await fetch("http://localhost:3001/auth/register", {
@@ -85,6 +96,7 @@ const Form = () => {
     }
   };
 
+  // Function to handle log in of user
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch("http://localhost:3001/auth/login", {
       method: "POST",

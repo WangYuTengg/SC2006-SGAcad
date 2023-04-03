@@ -3,18 +3,20 @@ import {
   IconButton,
   InputBase,
   Typography,
-  Select,
-  MenuItem,
-  FormControl,
   useTheme,
-  useMediaQuery,
-  Button,
-  Modal,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/system";
-import { Search, DarkMode, LightMode, Menu, Close } from "@mui/icons-material";
+import { Search } from "@mui/icons-material";
 
+/**
+ * Util file containing misc components used in the frontend
+ */
+
+/**
+ * Modal style for the SubmitSpotForm.
+ * @constant
+ */
 export const SubmitSpotFormModalStyle = {
   position: "absolute",
   top: "50%",
@@ -31,6 +33,14 @@ export const SubmitSpotFormModalStyle = {
   borderRadius: 3,
 };
 
+/**
+ * Logo component used in NavBar
+ *
+ * @component
+ * @example
+ * // Usage
+ * <Logo />
+ */
 export const Logo = () => {
   const navigate = useNavigate();
   const theme = useTheme();
@@ -53,18 +63,43 @@ export const Logo = () => {
   );
 };
 
+/**
+ * Helper Styled Box component for flex layout with space between items.
+ * 
+ * @component
+ * @example
+ * // Usage
+ * <FlexBetween> {OtherComponents} </FlexBetween>
+ */
 export const FlexBetween = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
 });
 
+/**
+ * WidgetWrapper component 
+ * Helper component that is used to wrap widget components 
+ * 
+ * @component
+ * @example
+ * // Usage
+ * <WidgetWrapper> {widget} </WidgetWrapper>
+ */
 export const WidgetWrapper = styled(Box)(({ theme }) => ({
   padding: "1.5rem 1.5rem 0.75rem 1.5rem",
   backgroundColor: theme.palette.background.alt,
   borderRadius: "0.75rem",
 }));
 
+/**
+ * SearchBar component with input and search icon.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <SearchBar />
+ */
 export const SearchBar = () => {
   const theme = useTheme();
   const neutralLight = theme.palette.neutral.light;
@@ -83,6 +118,14 @@ export const SearchBar = () => {
   );
 };
 
+/**
+ * GoogleMapsIconRed component that displays a custom red Google Maps icon.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <GoogleMapsIconRed />
+ */
 export const GoogleMapsIconRed = ({ color = "red" }) => {
   const iconSrc = `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
 
@@ -99,6 +142,14 @@ export const GoogleMapsIconRed = ({ color = "red" }) => {
   );
 };
 
+/**
+ * GoogleMapsIconRed component that displays a custom red Google Maps icon.
+ *
+ * @component
+ * @example
+ * // Usage
+ * <GoogleMapsIconRed />
+ */
 export const GoogleMapsIconGreen = ({ color = "green" }) => {
   const iconSrc = `https://maps.google.com/mapfiles/ms/icons/${color}-dot.png`;
 

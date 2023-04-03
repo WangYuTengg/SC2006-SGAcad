@@ -9,11 +9,23 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import WidgetWrapper from "./WidgetWrapper";
+import {WidgetWrapper} from "./Utils";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+/**
+ * SubmitReviewForm component 
+ * The form allows users to submit a review of a specific study spot.
+ * 
+ * @component
+ * @param {string} spotId - The ID of the spot for which the review will be submitted
+ * @param {function} onReviewSubmitted - Callback function to be called when a review is successfully submitted
+ * 
+ * @example
+ * // Usage
+ * <SubmitReviewForm spotId={spot._id} onReviewSubmitted={(newReview) => setNewReviews([...newReviews, newReview])}
+ */
 const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
   const { palette } = useTheme();
   const [review, setReview] = useState("");
@@ -31,6 +43,7 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
     setSnackbar({ open: true, message, severity });
   };
 
+  // Function to handle the posting of review
   const handleReview = async (e) => {
     e.preventDefault();
     const values = {
@@ -49,17 +62,14 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
         body: JSON.stringify(values),
       }
     );
-    //console.log(response);
     if (response.status === 201) {
-      const data = await response.json(); // Get the newly created review data
-      onReviewSubmitted(data); // Call the callback function with the new review data
+      const data = await response.json(); 
+      onReviewSubmitted(data); 
       handleOpenSnackbar("Review Posted!", "success");
-
-      // Reset the review body and rating
       setReview("");
       setRating(0);
     } else {
-      handleOpenSnackbar("Oops, something went wrong!", "error");
+      handleOpenSnackbar("Please input a review.", "error");
     }
   };
 
