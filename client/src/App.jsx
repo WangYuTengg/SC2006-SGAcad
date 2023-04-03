@@ -10,6 +10,10 @@ import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { useSelector } from "react-redux";
 
+/**
+ * Main application component.
+ * @component
+ */
 export default function App() {
   const mode = useSelector((state) => state.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
