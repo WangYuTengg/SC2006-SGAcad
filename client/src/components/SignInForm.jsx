@@ -66,7 +66,7 @@ const Form = () => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
-    severity: "",
+    severity: "info",
   });
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });

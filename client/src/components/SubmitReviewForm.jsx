@@ -9,19 +9,19 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
-import {WidgetWrapper} from "./Utils";
+import { WidgetWrapper } from "./Utils";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 /**
- * SubmitReviewForm component 
+ * SubmitReviewForm component
  * The form allows users to submit a review of a specific study spot.
- * 
+ *
  * @component
  * @param {string} spotId - The ID of the spot for which the review will be submitted
  * @param {function} onReviewSubmitted - Callback function to be called when a review is successfully submitted
- * 
+ *
  * @example
  * // Usage
  * <SubmitReviewForm spotId={spot._id} onReviewSubmitted={(newReview) => setNewReviews([...newReviews, newReview])}
@@ -34,7 +34,7 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
-    severity: "",
+    severity: "info",
   });
   const handleCloseSnackbar = () => {
     setSnackbar({ ...snackbar, open: false });
@@ -63,8 +63,8 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
       }
     );
     if (response.status === 201) {
-      const data = await response.json(); 
-      onReviewSubmitted(data); 
+      const data = await response.json();
+      onReviewSubmitted(data);
       handleOpenSnackbar("Review Posted!", "success");
       setReview("");
       setRating(0);
