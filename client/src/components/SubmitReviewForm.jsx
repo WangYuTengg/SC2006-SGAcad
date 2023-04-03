@@ -49,8 +49,8 @@ const SubmitReviewForm = ({ spotId, onReviewSubmitted }) => {
         body: JSON.stringify(values),
       }
     );
-
-    if (response) {
+    //console.log(response);
+    if (response.status === 201) {
       const data = await response.json(); // Get the newly created review data
       onReviewSubmitted(data); // Call the callback function with the new review data
       handleOpenSnackbar("Review Posted!", "success");
