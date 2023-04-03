@@ -2,6 +2,7 @@ import { Rating, useTheme, Typography, Box } from "@mui/material";
 import WidgetWrapper from "./WidgetWrapper";
 import { useEffect, useState } from "react";
 import Favorite from "./Favorite";
+import moment from "moment/moment";
 
 const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) => {
   const [user, setUser] = useState(null);
@@ -48,6 +49,9 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) 
         <Typography color={main} sx={{ mt: "1rem" }}>
           {user.firstName} {user.lastName}
         </Typography>
+        <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
+          Posted on {moment(spot.createdAt).format('DD-MM-YYYY HH:mm:ss')}
+        </Typography>
         <Rating name="read-only" value={rating} readOnly />
         <Typography color={main} sx={{ mt: "1rem" }}>
           {comment}
@@ -60,6 +64,9 @@ const Review = ({ reviewId, userId, spotId, rating, comment, isProfile=false }) 
       <WidgetWrapper m="2rem 0">
         <Typography color={main} sx={{ mt: "1rem" }}>
           {user.firstName} {user.lastName}
+        </Typography>
+        <Typography color={main} sx={{ mt: "1rem", mb: "1rem" }}>
+          Posted on {moment(spot.createdAt).format('DD-MM-YYYY HH:mm:ss')}
         </Typography>
         <Rating name="read-only" value={rating} readOnly />
         <Typography color={main} sx={{ mt: "1rem" }}>
