@@ -18,8 +18,25 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 
+/**
+ * Configuration object for the redux-persist library.
+ * @constant
+ * @type {object}
+ */
 const persistConfig = { key: "root", storage, version: 1 };
+
+/**
+ * Persisted reducer using the authReducer and the persistConfig.
+ * @constant
+ * @type {function}
+ */
 const persistedReducer = persistReducer(persistConfig, authReducer);
+
+/**
+ * The Redux store configured with the persisted reducer and middleware.
+ * @constant
+ * @type {object}
+ */
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
@@ -30,7 +47,11 @@ const store = configureStore({
     }),
 });
 
-
+/**
+ * Top level file
+ * Renders the main application wrapped with React.StrictMode,
+ * Redux Provider, and the PersistGate for persisting the store.
+ */
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
