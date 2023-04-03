@@ -1,9 +1,4 @@
-import {
-  Divider,
-  Typography,
-  Grid,
-  CircularProgress,
-} from "@mui/material";
+import { Divider, Typography, Grid, CircularProgress } from "@mui/material";
 import { Box, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -117,7 +112,7 @@ const ProfilePage = () => {
               Reviews Given
             </Typography>
             <Box>
-              <Reviews spotId={""} newReviews={[]} isProfile={true} />
+              <Reviews spotId={""} newReview={null} isProfile={true} />
             </Box>
           </Box>
         </Grid>
