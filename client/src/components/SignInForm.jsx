@@ -37,7 +37,11 @@ const Form = () => {
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
-    password: yup.string().required("required"),
+    password: yup
+      .string()
+      .min(8, "Minimum 8 characters")
+      .max(12, "Maximum 12 characters")
+      .required("required"),
     confirmPassword: yup
       .string()
       .oneOf([yup.ref("password"), null], "passwords must match")

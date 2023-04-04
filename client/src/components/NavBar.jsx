@@ -27,7 +27,7 @@ import {
  * NavBar Component
  * This component represents the navigation bar used throughout the application.
  * It includes a search bar, user authentication menu, theme toggle, and other navigation options.
- * 
+ *
  * @component
  * @example
  * // Usage
@@ -143,7 +143,7 @@ const NavBar = () => {
                 },
               }}
             >
-              Login/Signup
+              Login/Register
             </Typography>
           )}
         </FlexBetween>
