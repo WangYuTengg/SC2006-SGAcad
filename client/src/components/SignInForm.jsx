@@ -36,7 +36,7 @@ const Form = () => {
   const registerSchema = yup.object().shape({
     firstName: yup.string().required("required"),
     lastName: yup.string().required("required"),
-    email: yup.string().email("invalid email").required("required"),
+    email: yup.string().email("Invalid email format").required("required"),
     password: yup
       .string()
       .min(8, "Minimum 8 characters")
@@ -44,7 +44,7 @@ const Form = () => {
       .required("required"),
     confirmPassword: yup
       .string()
-      .oneOf([yup.ref("password"), null], "passwords must match")
+      .oneOf([yup.ref("password"), null], "Passwords must match")
       .required("required"),
   });
 
