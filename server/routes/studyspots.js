@@ -1,13 +1,11 @@
 import express from "express";
 import {
-    createStudySpot,
-    getAllStudySpots,
-    getStudySpotById
+  createStudySpot,
+  getAllStudySpots,
+  getStudySpotById,
+  submitStudySpot,
 } from "../controllers/studyspots.js";
-import {
-    createReview,
-    getSpotReviews
-} from "../controllers/reviews.js";
+import { createReview, getSpotReviews } from "../controllers/reviews.js";
 import { addRemoveFavorites } from "../controllers/users.js";
 
 const router = express.Router();
@@ -20,6 +18,15 @@ const router = express.Router();
  * @returns {Error} 409 - A conflict occurred while creating the study spot.
  */
 router.post("/create", createStudySpot);
+
+/**
+ * Submits a new study spot.
+ * @route POST /studyspots/submit
+ * @param {StudySpotSubmitted.model} request.body.required - The study spot to submit
+ * @returns {StudySpotSubmitted.model} 201 - The submitted study spot
+ * @returns {Error} 409 - A conflict occurred while submitting the study spot.
+ */
+router.post("/submit", submitStudySpot);
 
 /**
  * Create a new review for a study spot.

@@ -16,9 +16,9 @@ import Dropzone from "react-dropzone";
 import { FlexBetween } from "./Utils";
 
 /**
- * SubmitSpotForm component 
+ * SubmitSpotForm component
  * Component that allows users to submit a new spot.
- * 
+ *
  * @component
  * @example
  * // Usage
@@ -27,9 +27,18 @@ import { FlexBetween } from "./Utils";
 const SubmitSpotForm = () => {
   const { palette } = useTheme();
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  const [snackbarOpen, setSnackBarOpen] = useState(false);
-  const handleSnackbarClose = () => setSnackBarOpen(false);
-  
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "info",
+  });
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+  const handleOpenSnackbar = (message, severity) => {
+    setSnackbar({ open: true, message, severity });
+  };
+
   // Schema for study spot submission
   const formSchema = yup.object().shape({
     name: yup.string().required("required"),
@@ -43,7 +52,7 @@ const SubmitSpotForm = () => {
       .max(6, "Must be exactly 6 digits"),
     picture: yup.string().optional(),
   });
-  
+
   const initialValuesSpot = {
     name: "",
     description: "",
@@ -52,10 +61,22 @@ const SubmitSpotForm = () => {
     picture: "",
   };
 
-  // Handle submission of form 
+  // Handle submission of form
   const handleFormSubmit = async (values, onSubmitProps) => {
     try {
-      setSnackBarOpen(true);
+      const response = await fetch("http://localhost:3001/studyspots/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
+      if (data.error) {
+        handleOpenSnackbar("Submission Error", "error");
+        console.log(data.error);
+      } else {
+        handleOpenSnackbar("Spot Submitted!", "success");
+        onSubmitProps.resetForm();
+      }
     } catch (error) {
       console.error(error);
     }
@@ -212,16 +233,19 @@ const SubmitSpotForm = () => {
                   Submit
                 </Button>
                 <Snackbar
+                  open={snackbar.open}
+                  autoHideDuration={4000}
                   anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                  autoHideDuration={3000}
-                  open={snackbarOpen}
-                  onClose={handleSnackbarClose}
+                  onClose={handleCloseSnackbar}
                 >
                   <Alert
-                    sx={{ width: "100%", fontSize: "1rem" }}
-                    severity="success"
+                    sx={{ width: "100%", fontSize: "1.1rem" }}
+                    elevation={6}
+                    variant="filled"
+                    onClose={handleCloseSnackbar}
+                    severity={snackbar.severity}
                   >
-                    Submitted Successfully!
+                    {snackbar.message}
                   </Alert>
                 </Snackbar>
               </Box>

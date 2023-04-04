@@ -1,4 +1,5 @@
 import StudySpot from "../models/StudySpot.js";
+import StudySpotSubmitted from "../models/StudySpotSubmitted.js";
 
 // StudySpotController module
 
@@ -61,4 +62,28 @@ export const getStudySpotById = async (req, res) => {
   }
 };
 
+/**
+ * Submits a new unapproved study spot.
+ * @async
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Object} The list of all study spots submitted including the newly submitted spot.
+ */
+export const submitStudySpot = async (req, res) => {
+  try {
+    const { name, postal, description, picturePath, address } = req.body;
+    const newStudySpotSubmitted = new StudySpotSubmitted({
+      name,
+      postal,
+      description,
+      picturePath,
+      address,
+    });
+    await newStudySpotSubmitted.save();
 
+    const studyspotsubmitted = await StudySpotSubmitted.find();
+    res.status(201).json(studyspotsubmitted);
+  } catch (err) {
+    res.status(409).json({ message: err.message });
+  }
+};
